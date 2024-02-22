@@ -3,7 +3,7 @@ You are required to use Machine Learning to tackle the problem of **“Image-Tex
 
 | Image | Text | Label |
 | ----- | ---- | ----- |
-| ![Image Description](image_url) | A young child is walking on a stone-paved street with a metal pole and a man behind him. | match |
+| ![Image Description]([image_url](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/1514957266_a19827c538.jpg?raw=true)) | A young child is walking on a stone-paved street with a metal pole and a man behind him. | match |
 | ![Image Description](image_url) | A little boy skateboarder is doing a trick on his board while another young skateboarder watches. | no-match |
 | ![Image Description](image_url) | Two workers at a grocery store observing something out of camera range. | match |
 | ![Image Description](image_url) | A man is riding a tiny motorcycle through a busy market. | no-match |
