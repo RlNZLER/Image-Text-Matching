@@ -3,10 +3,10 @@ You are required to use Machine Learning to tackle the problem of **“Image-Tex
 
 | Image | Text | Label |
 | ----- | ---- | ----- |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3523972229_d44e9ff6d7.jpg?raw=true) | A young child is walking on a stone-paved street with a metal pole and a man behind him. | match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/47871819_db55ac4699.jpg?raw=true) | A little boy skateboarder is doing a trick on his board while another young skateboarder watches. | no-match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3285993030_87b0f1d202.jpg?raw=true) | Two workers at a grocery store observing something out of camera range. | match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/2616673985_fa4354cc53.jpg?raw=true) | A man is riding a tiny motorcycle through a busy market. | no-match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3523972229_d44e9ff6d7.jpg?raw=true) | The skateboard is falling away from the skateboarder as he attempts a jump | match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3524436870_7670df68e8.jpg?raw=true) | Two people stand next to a sign that says  HELL  made out of stars. | no-match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3525453732_f74a38f111.jpg?raw=true) | An owl has its wings up and widespread during the day. | match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3526897578_3cf77da99b.jpg?raw=true) | A kayaker is battling waves in a purple boat while wearing rain gear . | no-match |
 
 Your task involves training and evaluating at least three machine-learning classifiers for matching images and sentences. To do that, you will use a unique dataset (different and potentially smaller than the originally proposed due to computing requirements) available via Blackboard. Since the dataset will contain different data splits (training, validation, and test examples), you are reminded that the test data should not be involved during training. It should only be used for testing your trained classifiers, and it should be used only to report the performance of the predictions of your proposed models.
 
