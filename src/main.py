@@ -122,8 +122,7 @@ class ITM_DataLoader():
         with open(self.sentence_embeddings_file, 'rb') as f:
             data = pickle.load(f)
             for sentence, dense_vector in data.items():
-            #print("*sentence=",sentence)
-            sentence_embeddings[sentence] = dense_vector
+                sentence_embeddings[sentence] = dense_vector
             print("Done reading sentence_embeddings!")
         return sentence_embeddings
 
