@@ -13,6 +13,8 @@ Your task involves training and evaluating at least three machine-learning class
 
 You are expected to explore a range of machine learning classifiers inspired by the materials presented and discussed within the module and beyond (i.e., from reading related literature). You will investigate compare and critique their performance to justify your recommendations. Your comparisons should include metrics such as Balanced Classification Accuracy, precision-recall, F-measure, and any other metrics that you consider relevant. In this assignment, you are free to train any classifier, do any pre-and/or post-processing of the data, and implement your algorithm(s) whenever possible instead of only using libraries. You are allowed to use publicly available libraries to train your models; for example, you can use any deep learning frameworks and tools (e.g. Keras, Tensorflow, Pytorch, ChatGPT). However, you will need to clearly mention your resources, acknowledge them appropriately, and compare between classifiers and their results in your report.
 
+pip freeze > requirements.txt
+
 ## Image-Text Matching Classifier: Assignment Task 1
 
 ### Overview
@@ -80,3 +82,5 @@ The provided Python script contains a baseline system for the Image-Text Matchin
 
 Overall, the script serves as a starting point for implementing an Image-Text Matching classifier using deep learning techniques and TensorFlow. Users can further enhance the system by experimenting with different architectures, hyperparameters, and training strategies.
 
+https://arxiv.org/pdf/1909.11740v3.pdf
+https://github.com/ChenRocks/UNITER

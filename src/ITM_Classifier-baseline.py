@@ -95,7 +95,7 @@ class ITM_DataLoader():
     IMAGE_SHAPE = (224, 224, 3)
     SENTENCE_EMBEDDING_SHAPE = (384)
     AUTOTUNE = tf.data.AUTOTUNE
-    IMAGES_PATH = "/mnt/c/Users/Computing/Downloads/flickr8k.dataset-cmp9137-item1/flickr8k-resised"
+    IMAGES_PATH = "data/images"
     train_data_file = IMAGES_PATH+"/../flickr8k.TrainImages.txt"
     dev_data_file = IMAGES_PATH+"/../flickr8k.DevImages.txt"
     test_data_file = IMAGES_PATH+"/../flickr8k.TestImages.txt"
@@ -120,10 +120,10 @@ class ITM_DataLoader():
         sentence_embeddings = {}
         print("READING sentence embeddings...")
         with open(self.sentence_embeddings_file, 'rb') as f:
-	        data = pickle.load(f)
-	        for sentence, dense_vector in data.items():
-		        #print("*sentence=",sentence)
-		        sentence_embeddings[sentence] = dense_vector
+            data = pickle.load(f)
+            for sentence, dense_vector in data.items():
+                sentence_embeddings[sentence] = dense_vector
+                #print("*sentence=",sentence)
         print("Done reading sentence_embeddings!")
         return sentence_embeddings
 
