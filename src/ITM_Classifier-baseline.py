@@ -86,7 +86,16 @@ from tensorflow.keras import layers
 from official.nlp import optimization
 import matplotlib.pyplot as plt
 
-
+# Verify TensorFlow can detect the GPU
+gpus = tf.config.experimental.list_physical_devices('GPU')
+print(f"Num GPUs Available: {len(gpus)}")
+for gpu in gpus:
+    tf.config.experimental.set_memory_growth(gpu, True)
+if len(gpus) > 0:
+    print(f"Using GPU: {gpus[0].device_type} {gpus[0].name}")
+else:
+    print("No GPU detected. Running on CPU.")
+    
 # Class for loading image and text data
 
 class ITM_DataLoader():
