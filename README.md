@@ -13,7 +13,12 @@ Your task involves training and evaluating at least three machine-learning class
 
 You are expected to explore a range of machine learning classifiers inspired by the materials presented and discussed within the module and beyond (i.e., from reading related literature). You will investigate compare and critique their performance to justify your recommendations. Your comparisons should include metrics such as Balanced Classification Accuracy, precision-recall, F-measure, and any other metrics that you consider relevant. In this assignment, you are free to train any classifier, do any pre-and/or post-processing of the data, and implement your algorithm(s) whenever possible instead of only using libraries. You are allowed to use publicly available libraries to train your models; for example, you can use any deep learning frameworks and tools (e.g. Keras, Tensorflow, Pytorch, ChatGPT). However, you will need to clearly mention your resources, acknowledge them appropriately, and compare between classifiers and their results in your report.
 
+**Store requirements:**
 pip freeze > requirements.txt
+
+**Download and install CUDA**
+https://youtu.be/4p4b9qT5S6w?si=tT6QEPMxwRY-fR0m
+
 
 ## Image-Text Matching Classifier: Assignment Task 1
 
