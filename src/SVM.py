@@ -215,52 +215,43 @@ class ITM_DataLoader():
 
 # Main class for the Image-Text Matching (ITM) task
 
-class ITM_Classifier(ITM_DataLoader):
-    epochs = 10
-    learning_rate = 3e-5
-    class_names = {'match', 'no-match'}
-    num_classes = len(class_names)
-    classifier_model = None
-    history = None
-    classifier_model_name = 'ITM_Classifier-flickr'
+# Import necessary libraries
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, classification_report
 
+class SVMClassifier:
+    def __init__(self):
+        # Initialize SVM classifier
+        self.svm_classifier = SVC(kernel='linear', probability=True)
+
+    def train(self, train_features, train_labels):
+        # Flatten image features for SVM input
+        train_features_flattened = [np.ravel(img_features.numpy()) for img_features, _ in train_features]
+
+        # Convert labels to 1D array
+        train_labels_flat = np.argmax(np.array([label.numpy() for _, label in train_labels]), axis=1)
+
+        # Train SVM classifier
+        self.svm_classifier.fit(train_features_flattened, train_labels_flat)
+
+    def predict(self, features):
+        # Flatten image features for SVM input
+        features_flattened = [np.ravel(img_features.numpy()) for img_features, _ in features]
+
+        # Predict using SVM classifier
+        predictions = self.svm_classifier.predict(features_flattened)
+
+        return predictions
+
+# Update ITM_Classifier class to include SVM
+class ITM_Classifier(ITM_DataLoader):
     def __init__(self):
         super().__init__()
         self.build_classifier_model()
         self.train_classifier_model()
         self.test_classifier_model()
-
-    # return learnt feature representations of input data (images)
-    def create_vision_encoder(self, num_projection_layers, projection_dims, dropout_rate):
-        img_input = layers.Input(shape=self.IMAGE_SHAPE, name="image_input")
-        cnn_layer = layers.Conv2D(16, 3, padding='same', activation='relu')(img_input)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
-        cnn_layer = layers.Conv2D(32, 3, padding='same', activation='relu')(cnn_layer)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
-        cnn_layer = layers.Conv2D(64, 3, padding='same', activation='relu')(cnn_layer)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
-        cnn_layer = layers.Dropout(dropout_rate)(cnn_layer)
-        cnn_layer = layers.Flatten()(cnn_layer)
-        outputs = self.project_embeddings(cnn_layer, num_projection_layers, projection_dims, dropout_rate)
-        return img_input, outputs
-
-    # return learnt feature representations based on dense layers, dropout, and layer normalisation
-    def project_embeddings(self, embeddings, num_projection_layers, projection_dims, dropout_rate):
-        projected_embeddings = layers.Dense(units=projection_dims)(embeddings)
-        for _ in range(num_projection_layers):
-            x = tf.nn.gelu(projected_embeddings)
-            x = layers.Dense(projection_dims)(x)
-            x = layers.Dropout(dropout_rate)(x)
-            x = layers.Add()([projected_embeddings, x])
-            projected_embeddings = layers.LayerNormalization()(x)
-        return projected_embeddings
-
-    # return learnt feature representations of input data (text embeddings in the form of dense vectors)
-    def create_text_encoder(self, num_projection_layers, projection_dims, dropout_rate):
-        text_input = keras.Input(shape=self.SENTENCE_EMBEDDING_SHAPE, name='text_embedding')
-        outputs = self.project_embeddings(text_input, num_projection_layers, projection_dims, dropout_rate)
-        return text_input, outputs
-
+        self.svm_classifier = SVMClassifier()
+        
     # put together the feature representations above to create the image-text (multimodal) deep learning model
     def build_classifier_model(self):
         print(f'BUILDING model')
@@ -271,64 +262,28 @@ class ITM_Classifier(ITM_DataLoader):
         net = tf.keras.layers.Dense(self.num_classes, activation='softmax', name=self.classifier_model_name)(net)
         self.classifier_model = tf.keras.Model(inputs=[img_input, text_input], outputs=net)
         self.classifier_model.summary()
-	
+        
     def train_classifier_model(self):
-        print(f'TRAINING model')
-        steps_per_epoch = tf.data.experimental.cardinality(self.train_ds).numpy()
-        num_train_steps = steps_per_epoch * self.epochs
-        num_warmup_steps = int(0.2*num_train_steps)
-
-        loss = tf.keras.losses.KLDivergence()
-        metrics = tf.keras.metrics.BinaryAccuracy()
-        optimizer = optimization.create_optimizer(init_lr=self.learning_rate,
-                                          num_train_steps=num_train_steps,
-                                          num_warmup_steps=num_warmup_steps,
-                                          optimizer_type='adamw')
-
-        self.classifier_model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
-
-        # uncomment the next line if you wish to make use of early stopping during training
-        #callbacks = [tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)]
-
-        self.history = self.classifier_model.fit(x=self.train_ds, validation_data=self.val_ds, epochs=self.epochs)#, callbacks=callbacks)
-        print("model trained!")
+        super().train_classifier_model()
+        # Train SVM classifier
+        train_features = [(features['image_input'], label) for features, label in self.train_ds]
+        self.svm_classifier.train(train_features)
 
     def test_classifier_model(self):
-        print("TESTING classifier model (showing a sample of image-text-matching predictions)...")
-        num_classifications = 0
-        num_correct_predictions = 0
+        super().test_classifier_model()
+        # Test SVM classifier
+        test_features = [(features['image_input'], label) for features, label in self.test_ds]
+        svm_predictions = self.svm_classifier.predict(test_features)
 
-        # read test data for ITM classification
-        for features, groundtruth in self.test_ds:
-            groundtruth = groundtruth.numpy()
-            predictions = self.classifier_model(features)
-            predictions = predictions.numpy()
-            captions = features["caption"].numpy()
-            file_names = features["file_name"].numpy()
+        # Convert SVM predictions to match the format of NN predictions
+        svm_predictions_nn_format = [[1, 0] if pred == 0 else [0, 1] for pred in svm_predictions]
 
-            # read test data per batch
-            for batch_index in range(0, len(groundtruth)):
-                predicted_values = predictions[batch_index]
-                probability_match = predicted_values[0]
-                probability_nomatch = predicted_values[1]
-                predicted_class = "[1 0]" if probability_match > probability_nomatch else "[0 1]"
-                if str(groundtruth[batch_index]) == predicted_class: 
-                    num_correct_predictions += 1
-                num_classifications += 1
+        # Evaluate SVM performance
+        svm_accuracy = accuracy_score(np.argmax([label.numpy() for _, label in self.test_ds], axis=1), svm_predictions)
+        print("SVM Test Accuracy:", svm_accuracy)
+        print("SVM Classification Report:")
+        print(classification_report(np.argmax([label.numpy() for _, label in self.test_ds], axis=1), svm_predictions))
 
-                # print a sample of predictions -- about 10% of all possible
-                if random.random() < 0.1:
-                    caption = captions[batch_index]
-                    file_name = file_names[batch_index].decode("utf-8")
-                    print("ITM=%s PREDICTIONS: match=%s, no-match=%s \t -> \t %s" % (caption, probability_match, probability_nomatch, file_name))
-
-        # reveal test performance using our own calculations above
-        accuracy = num_correct_predictions/num_classifications
-        print("TEST accuracy=%4f" % (accuracy))
-
-        # reveal test performance using Tensorflow calculations
-        loss, accuracy = self.classifier_model.evaluate(self.test_ds)
-        print(f'Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}')
 
 def plot_training_history(history):
     acc = history.history['binary_accuracy']
