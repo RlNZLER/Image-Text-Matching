@@ -1,4 +1,4 @@
 env/
 cuda_11.8.0_520.61.05_linux.run
 cuda-repo-ubuntu2204-11-8-local_11.8.0-520.61.05-1_amd64.deb
-datasets4transformers
+datasets4transformers/
