@@ -1,34 +1,38 @@
 import sys
 import os
 import time
-import random
+import einops
 import pickle
+import random
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers, Model
-from tensorflow.keras.applications import ResNet50
+from tensorflow.keras import layers
 from official.nlp import optimization
 import matplotlib.pyplot as plt
-import tensorflow_hub as hub
-import tensorflow_text as text
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.units import inch
+from reportlab.platypus import Image as RLImage
 
-# Assuming TensorFlow 2.x
-assert tf.__version__.startswith('2.')
 
-
+# Class for loading image and text data
 class ITM_DataLoader():
     BATCH_SIZE = 16
     IMAGE_SIZE = (224, 224)
     IMAGE_SHAPE = (224, 224, 3)
-    SENTENCE_EMBEDDING_SHAPE = (128,)  # Update based on your text model's output
+    SENTENCE_EMBEDDING_SHAPE = (384)
     AUTOTUNE = tf.data.AUTOTUNE
     IMAGES_PATH = "data/images"
-    train_data_file = os.path.join(IMAGES_PATH, "../flickr8k.TrainImages.txt")
-    dev_data_file = os.path.join(IMAGES_PATH, "../flickr8k.DevImages.txt")
-    test_data_file = os.path.join(IMAGES_PATH, "../flickr8k.TestImages.txt")
-    sentence_embeddings_file = os.path.join(IMAGES_PATH, "../flickr8k.cmp9137.sentence_transformers.pkl")
-    
+    train_data_file = IMAGES_PATH+"/../flickr8k.TrainImages.txt"
+    dev_data_file = IMAGES_PATH+"/../flickr8k.DevImages.txt"
+    test_data_file = IMAGES_PATH+"/../flickr8k.TestImages.txt"
+    sentence_embeddings_file = IMAGES_PATH+"/../flickr8k.cmp9137.sentence_transformers.pkl"
+    sentence_embeddings = {}
+    train_ds = None
+    val_ds = None
+    test_ds = None
 
     def __init__(self):
         self.sentence_embeddings = self.load_sentence_embeddings()
@@ -126,10 +130,12 @@ class ITM_DataLoader():
                 label = label_batch.numpy()[i]
                 print(f'Label : {label}')
         print("-----------------------------------------")
-        
-        
+
+
+# Main class for the Image-Text Matching (ITM) task
+
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 10
+    epochs = 1
     learning_rate = 3e-5
     class_names = {'match', 'no-match'}
     num_classes = len(class_names)
@@ -141,41 +147,149 @@ class ITM_Classifier(ITM_DataLoader):
         super().__init__()
         self.build_classifier_model()
         self.train_classifier_model()
-        self.test_classifier_model()
+        self.test_classifier_model_and_generate_pdf_report()
 
-    def create_vision_encoder(self):
-        base_model = ResNet50(weights='imagenet', include_top=False, input_shape=self.IMAGE_SHAPE)
-        base_model.trainable = False  # Freeze the base model
-
+    # return learnt feature representations of input data (images)
+    def create_vision_encoder(self, num_projection_layers, projection_dims, dropout_rate):
         img_input = layers.Input(shape=self.IMAGE_SHAPE, name="image_input")
-        x = base_model(img_input, training=False)
-        x = layers.GlobalAveragePooling2D()(x)
-        x = layers.Dropout(0.2)(x)  # Add dropout for regularization
-        vision_encoded = layers.Dense(128, activation='relu')(x)
-        return img_input, vision_encoded
+        cnn_layer = layers.Conv2D(16, 3, padding='same', activation='relu')(img_input)
+        cnn_layer = layers.MaxPooling2D()(cnn_layer)
+        cnn_layer = layers.Conv2D(32, 3, padding='same', activation='relu')(cnn_layer)
+        cnn_layer = layers.MaxPooling2D()(cnn_layer)
+        cnn_layer = layers.Conv2D(64, 3, padding='same', activation='relu')(cnn_layer)
+        cnn_layer = layers.MaxPooling2D()(cnn_layer)
+        cnn_layer = layers.Dropout(dropout_rate)(cnn_layer)
+        cnn_layer = layers.Flatten()(cnn_layer)
+        outputs = self.project_embeddings(cnn_layer, num_projection_layers, projection_dims, dropout_rate)
+        return img_input, outputs
 
-    def create_text_encoder(self):
-        text_input = layers.Input(shape=(), dtype=tf.string, name='text_input')
-    
-        pre_trained_embedding_layer = hub.KerasLayer("https://kaggle.com/models/tensorflow/bert/frameworks/TensorFlow2/variations/en-uncased-preprocess/versions/3", trainable=False)
-        x = pre_trained_embedding_layer(text_input)
-        x = layers.Dropout(0.2)(x)  # Add dropout for regularization
-        text_encoded = layers.Dense(128, activation='relu')(x)
-        return text_input, text_encoded
+    # return learnt feature representations based on dense layers, dropout, and layer normalisation
+    def project_embeddings(self, embeddings, num_projection_layers, projection_dims, dropout_rate):
+        projected_embeddings = layers.Dense(units=projection_dims)(embeddings)
+        for _ in range(num_projection_layers):
+            x = tf.nn.gelu(projected_embeddings)
+            x = layers.Dense(projection_dims)(x)
+            x = layers.Dropout(dropout_rate)(x)
+            x = layers.Add()([projected_embeddings, x])
+            projected_embeddings = layers.LayerNormalization()(x)
+        return projected_embeddings
 
+    # return learnt feature representations of input data (text embeddings in the form of dense vectors)
+    def create_text_encoder(self, num_projection_layers, projection_dims, dropout_rate):
+        text_input = keras.Input(shape=self.SENTENCE_EMBEDDING_SHAPE, name='text_embedding')
+        outputs = self.project_embeddings(text_input, num_projection_layers, projection_dims, dropout_rate)
+        return text_input, outputs
+
+    # put together the feature representations above to create the image-text (multimodal) deep learning model
     def build_classifier_model(self):
-        img_input, vision_encoded = self.create_vision_encoder()
-        text_input, text_encoded = self.create_text_encoder()
-        concatenated = layers.Concatenate()([vision_encoded, text_encoded])
-        output = layers.Dense(self.num_classes, activation='softmax')(concatenated)
-        self.classifier_model = Model(inputs=[img_input, text_input], outputs=output)
-        # Compilation of the model
-        self.classifier_model.compile(optimizer='adam',
-                                  loss='categorical_crossentropy',
-                                  metrics=['accuracy'])
+        print(f'BUILDING model')
+        img_input, vision_net = self.create_vision_encoder(num_projection_layers=1, projection_dims=128, dropout_rate=0.1)
+        text_input, text_net = self.create_text_encoder(num_projection_layers=1, projection_dims=128, dropout_rate=0.1)
+        net = tf.keras.layers.Concatenate(axis=1)([vision_net, text_net])
+        net = tf.keras.layers.Dropout(0.1)(net)
+        net = tf.keras.layers.Dense(self.num_classes, activation='softmax', name=self.classifier_model_name)(net)
+        self.classifier_model = tf.keras.Model(inputs=[img_input, text_input], outputs=net)
         self.classifier_model.summary()
+	
+    def train_classifier_model(self):
+        print(f'TRAINING model')
+        steps_per_epoch = tf.data.experimental.cardinality(self.train_ds).numpy()
+        num_train_steps = steps_per_epoch * self.epochs
+        num_warmup_steps = int(0.2*num_train_steps)
 
-    # Training, evaluation, and other methods from your original ITM_Classifier class here...
+        loss = tf.keras.losses.KLDivergence()
+        metrics = tf.keras.metrics.BinaryAccuracy()
+        optimizer = optimization.create_optimizer(init_lr=self.learning_rate,
+                                          num_train_steps=num_train_steps,
+                                          num_warmup_steps=num_warmup_steps,
+                                          optimizer_type='adamw')
+
+        self.classifier_model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+
+        # uncomment the next line if you wish to make use of early stopping during training
+        #callbacks = [tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)]
+
+        self.history = self.classifier_model.fit(x=self.train_ds, validation_data=self.val_ds, epochs=self.epochs)#, callbacks=callbacks)
+        print("model trained!")
+
+    def generate_pdf_report(self, results):
+        doc = SimpleDocTemplate("itm_report.pdf", pagesize=letter)
+        data = [["Image", "Caption", "Match Probability", "No-Match Prob"]]
+
+        for result in results:
+            img_location, caption, probability_match, probability_nomatch = result
+            img_data = self.load_image(img_location)
+            img = self.convert_to_rl_image(img_data)
+            data.append([img, caption, f"{probability_match:.2f}", f"{probability_nomatch:.2f}"])
+
+        table = Table(data, colWidths=[2*inch, 4*inch, 2*inch, 2*inch])
+        table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                                   ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                                   ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                   ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                                   ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                                   ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                                   ('GRID', (0, 0), (-1, -1), 1, colors.black)]))
+
+        doc.build([table])
+
+    def load_image(self, img_location):
+        with open(img_location, "rb") as f:
+            img_data = f.read()
+        return img_data
+
+    def convert_to_rl_image(self, img_data):
+        pil_img = PILImage.open(io.BytesIO(img_data))
+        pil_img.thumbnail((100, 100))
+        img_io = io.BytesIO()
+        pil_img.save(img_io, format='JPEG')
+        img_io.seek(0)
+        img = RLImage(img_io, width=100, height=100)
+        return img
+
+
+    def test_classifier_model_and_generate_pdf_report(self):
+        print("TESTING classifier model and generating PDF report...")
+        results = []
+        num_classifications = 0
+        num_correct_predictions = 0
+
+        for features, groundtruth in self.test_ds:
+            groundtruth = groundtruth.numpy()
+            predictions = self.classifier_model(features)
+            predictions = predictions.numpy()
+            captions = features["caption"].numpy()
+            file_names = features["file_name"].numpy()
+
+            for batch_index in range(0, len(groundtruth)):
+                predicted_values = predictions[batch_index]
+                probability_match = predicted_values[0]
+                probability_nomatch = predicted_values[1]
+                predicted_class = "[1 0]" if probability_match > probability_nomatch else "[0 1]"
+                if str(groundtruth[batch_index]) == predicted_class:
+                    num_correct_predictions += 1
+                num_classifications += 1
+
+                if random.random() < 0.1:
+                    caption = captions[batch_index]
+                    file_name = file_names[batch_index].decode("utf-8")
+                    img_data = None  # Replace with actual image data
+                    results.append((img_data, caption, probability_match, probability_nomatch))
+
+        self.generate_pdf_report(results)
+        print("PDF report generated.")
+        
+        # Calculate accuracy
+        accuracy = num_correct_predictions / num_classifications
+        print("TEST accuracy=%4f" % (accuracy))
+
+        # Display accuracy using Tensorflow calculations
+        loss, accuracy = self.classifier_model.evaluate(self.test_ds)
+        print(f'Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}')
+
+    def load_image(self, img_path):
+        with open(img_path, 'rb') as f:
+            return f.read()
 
 
 def plot_training_history(history):
@@ -204,6 +318,9 @@ def plot_training_history(history):
 
     plt.show()
 
-# Remember to instantiate your ITM
+
+# Let's create an instance of the main class
+
 itm = ITM_Classifier()
+itm.test_classifier_model_and_generate_pdf_report()
 plot_training_history(itm.history)
