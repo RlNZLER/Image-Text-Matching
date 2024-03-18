@@ -28,6 +28,7 @@ cachetools==5.3.3
 camera-calibration==3.0.4
 cartographer-ros-msgs==2.0.9000
 certifi==2024.2.2
+chardet==5.2.0
 charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
@@ -49,6 +50,7 @@ dm-tree==0.1.8
 domain-coordinator==0.10.0
 dwb-msgs==1.1.13
 einops==0.7.0
+et-xmlfile==1.1.0
 etils==1.7.0
 example-interfaces==0.9.3
 examples-rclpy-executors==0.15.1
@@ -134,6 +136,7 @@ object-detection==0.0.0
 object-recognition-msgs==2.0.0
 octomap-msgs==2.0.0
 opencv-python-headless==4.9.0.80
+openpyxl==3.1.2
 opt-einsum==3.3.0
 osrf-pycommon==2.0.2
 packaging==24.0
@@ -173,6 +176,7 @@ rclpy==3.3.12
 rcutils==5.1.5
 regex==2023.12.25
 report-generator==0.0.0
+reportlab==4.1.0
 requests==2.31.0
 requests-oauthlib==1.4.0
 resource-retriever==3.1.1

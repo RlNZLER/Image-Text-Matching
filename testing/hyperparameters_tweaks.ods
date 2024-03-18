@@ -1,0 +1,1297 @@
+Optimizer Type,Learning Rate,Epochs,Batch Size
+Adam,0.01,5,8
+Adam,0.01,5,16
+Adam,0.01,5,32
+Adam,0.01,5,64
+Adam,0.01,5,128
+Adam,0.01,5,256
+Adam,0.01,10,8
+Adam,0.01,10,16
+Adam,0.01,10,32
+Adam,0.01,10,64
+Adam,0.01,10,128
+Adam,0.01,10,256
+Adam,0.01,15,8
+Adam,0.01,15,16
+Adam,0.01,15,32
+Adam,0.01,15,64
+Adam,0.01,15,128
+Adam,0.01,15,256
+Adam,0.01,20,8
+Adam,0.01,20,16
+Adam,0.01,20,32
+Adam,0.01,20,64
+Adam,0.01,20,128
+Adam,0.01,20,256
+Adam,0.01,25,8
+Adam,0.01,25,16
+Adam,0.01,25,32
+Adam,0.01,25,64
+Adam,0.01,25,128
+Adam,0.01,25,256
+Adam,0.01,30,8
+Adam,0.01,30,16
+Adam,0.01,30,32
+Adam,0.01,30,64
+Adam,0.01,30,128
+Adam,0.01,30,256
+Adam,0.001,5,8
+Adam,0.001,5,16
+Adam,0.001,5,32
+Adam,0.001,5,64
+Adam,0.001,5,128
+Adam,0.001,5,256
+Adam,0.001,10,8
+Adam,0.001,10,16
+Adam,0.001,10,32
+Adam,0.001,10,64
+Adam,0.001,10,128
+Adam,0.001,10,256
+Adam,0.001,15,8
+Adam,0.001,15,16
+Adam,0.001,15,32
+Adam,0.001,15,64
+Adam,0.001,15,128
+Adam,0.001,15,256
+Adam,0.001,20,8
+Adam,0.001,20,16
+Adam,0.001,20,32
+Adam,0.001,20,64
+Adam,0.001,20,128
+Adam,0.001,20,256
+Adam,0.001,25,8
+Adam,0.001,25,16
+Adam,0.001,25,32
+Adam,0.001,25,64
+Adam,0.001,25,128
+Adam,0.001,25,256
+Adam,0.001,30,8
+Adam,0.001,30,16
+Adam,0.001,30,32
+Adam,0.001,30,64
+Adam,0.001,30,128
+Adam,0.001,30,256
+Adam,0.0001,5,8
+Adam,0.0001,5,16
+Adam,0.0001,5,32
+Adam,0.0001,5,64
+Adam,0.0001,5,128
+Adam,0.0001,5,256
+Adam,0.0001,10,8
+Adam,0.0001,10,16
+Adam,0.0001,10,32
+Adam,0.0001,10,64
+Adam,0.0001,10,128
+Adam,0.0001,10,256
+Adam,0.0001,15,8
+Adam,0.0001,15,16
+Adam,0.0001,15,32
+Adam,0.0001,15,64
+Adam,0.0001,15,128
+Adam,0.0001,15,256
+Adam,0.0001,20,8
+Adam,0.0001,20,16
+Adam,0.0001,20,32
+Adam,0.0001,20,64
+Adam,0.0001,20,128
+Adam,0.0001,20,256
+Adam,0.0001,25,8
+Adam,0.0001,25,16
+Adam,0.0001,25,32
+Adam,0.0001,25,64
+Adam,0.0001,25,128
+Adam,0.0001,25,256
+Adam,0.0001,30,8
+Adam,0.0001,30,16
+Adam,0.0001,30,32
+Adam,0.0001,30,64
+Adam,0.0001,30,128
+Adam,0.0001,30,256
+Adam,3e-05,5,8
+Adam,3e-05,5,16
+Adam,3e-05,5,32
+Adam,3e-05,5,64
+Adam,3e-05,5,128
+Adam,3e-05,5,256
+Adam,3e-05,10,8
+Adam,3e-05,10,16
+Adam,3e-05,10,32
+Adam,3e-05,10,64
+Adam,3e-05,10,128
+Adam,3e-05,10,256
+Adam,3e-05,15,8
+Adam,3e-05,15,16
+Adam,3e-05,15,32
+Adam,3e-05,15,64
+Adam,3e-05,15,128
+Adam,3e-05,15,256
+Adam,3e-05,20,8
+Adam,3e-05,20,16
+Adam,3e-05,20,32
+Adam,3e-05,20,64
+Adam,3e-05,20,128
+Adam,3e-05,20,256
+Adam,3e-05,25,8
+Adam,3e-05,25,16
+Adam,3e-05,25,32
+Adam,3e-05,25,64
+Adam,3e-05,25,128
+Adam,3e-05,25,256
+Adam,3e-05,30,8
+Adam,3e-05,30,16
+Adam,3e-05,30,32
+Adam,3e-05,30,64
+Adam,3e-05,30,128
+Adam,3e-05,30,256
+Adam,1e-05,5,8
+Adam,1e-05,5,16
+Adam,1e-05,5,32
+Adam,1e-05,5,64
+Adam,1e-05,5,128
+Adam,1e-05,5,256
+Adam,1e-05,10,8
+Adam,1e-05,10,16
+Adam,1e-05,10,32
+Adam,1e-05,10,64
+Adam,1e-05,10,128
+Adam,1e-05,10,256
+Adam,1e-05,15,8
+Adam,1e-05,15,16
+Adam,1e-05,15,32
+Adam,1e-05,15,64
+Adam,1e-05,15,128
+Adam,1e-05,15,256
+Adam,1e-05,20,8
+Adam,1e-05,20,16
+Adam,1e-05,20,32
+Adam,1e-05,20,64
+Adam,1e-05,20,128
+Adam,1e-05,20,256
+Adam,1e-05,25,8
+Adam,1e-05,25,16
+Adam,1e-05,25,32
+Adam,1e-05,25,64
+Adam,1e-05,25,128
+Adam,1e-05,25,256
+Adam,1e-05,30,8
+Adam,1e-05,30,16
+Adam,1e-05,30,32
+Adam,1e-05,30,64
+Adam,1e-05,30,128
+Adam,1e-05,30,256
+Adam,1e-06,5,8
+Adam,1e-06,5,16
+Adam,1e-06,5,32
+Adam,1e-06,5,64
+Adam,1e-06,5,128
+Adam,1e-06,5,256
+Adam,1e-06,10,8
+Adam,1e-06,10,16
+Adam,1e-06,10,32
+Adam,1e-06,10,64
+Adam,1e-06,10,128
+Adam,1e-06,10,256
+Adam,1e-06,15,8
+Adam,1e-06,15,16
+Adam,1e-06,15,32
+Adam,1e-06,15,64
+Adam,1e-06,15,128
+Adam,1e-06,15,256
+Adam,1e-06,20,8
+Adam,1e-06,20,16
+Adam,1e-06,20,32
+Adam,1e-06,20,64
+Adam,1e-06,20,128
+Adam,1e-06,20,256
+Adam,1e-06,25,8
+Adam,1e-06,25,16
+Adam,1e-06,25,32
+Adam,1e-06,25,64
+Adam,1e-06,25,128
+Adam,1e-06,25,256
+Adam,1e-06,30,8
+Adam,1e-06,30,16
+Adam,1e-06,30,32
+Adam,1e-06,30,64
+Adam,1e-06,30,128
+Adam,1e-06,30,256
+Adamax,0.01,5,8
+Adamax,0.01,5,16
+Adamax,0.01,5,32
+Adamax,0.01,5,64
+Adamax,0.01,5,128
+Adamax,0.01,5,256
+Adamax,0.01,10,8
+Adamax,0.01,10,16
+Adamax,0.01,10,32
+Adamax,0.01,10,64
+Adamax,0.01,10,128
+Adamax,0.01,10,256
+Adamax,0.01,15,8
+Adamax,0.01,15,16
+Adamax,0.01,15,32
+Adamax,0.01,15,64
+Adamax,0.01,15,128
+Adamax,0.01,15,256
+Adamax,0.01,20,8
+Adamax,0.01,20,16
+Adamax,0.01,20,32
+Adamax,0.01,20,64
+Adamax,0.01,20,128
+Adamax,0.01,20,256
+Adamax,0.01,25,8
+Adamax,0.01,25,16
+Adamax,0.01,25,32
+Adamax,0.01,25,64
+Adamax,0.01,25,128
+Adamax,0.01,25,256
+Adamax,0.01,30,8
+Adamax,0.01,30,16
+Adamax,0.01,30,32
+Adamax,0.01,30,64
+Adamax,0.01,30,128
+Adamax,0.01,30,256
+Adamax,0.001,5,8
+Adamax,0.001,5,16
+Adamax,0.001,5,32
+Adamax,0.001,5,64
+Adamax,0.001,5,128
+Adamax,0.001,5,256
+Adamax,0.001,10,8
+Adamax,0.001,10,16
+Adamax,0.001,10,32
+Adamax,0.001,10,64
+Adamax,0.001,10,128
+Adamax,0.001,10,256
+Adamax,0.001,15,8
+Adamax,0.001,15,16
+Adamax,0.001,15,32
+Adamax,0.001,15,64
+Adamax,0.001,15,128
+Adamax,0.001,15,256
+Adamax,0.001,20,8
+Adamax,0.001,20,16
+Adamax,0.001,20,32
+Adamax,0.001,20,64
+Adamax,0.001,20,128
+Adamax,0.001,20,256
+Adamax,0.001,25,8
+Adamax,0.001,25,16
+Adamax,0.001,25,32
+Adamax,0.001,25,64
+Adamax,0.001,25,128
+Adamax,0.001,25,256
+Adamax,0.001,30,8
+Adamax,0.001,30,16
+Adamax,0.001,30,32
+Adamax,0.001,30,64
+Adamax,0.001,30,128
+Adamax,0.001,30,256
+Adamax,0.0001,5,8
+Adamax,0.0001,5,16
+Adamax,0.0001,5,32
+Adamax,0.0001,5,64
+Adamax,0.0001,5,128
+Adamax,0.0001,5,256
+Adamax,0.0001,10,8
+Adamax,0.0001,10,16
+Adamax,0.0001,10,32
+Adamax,0.0001,10,64
+Adamax,0.0001,10,128
+Adamax,0.0001,10,256
+Adamax,0.0001,15,8
+Adamax,0.0001,15,16
+Adamax,0.0001,15,32
+Adamax,0.0001,15,64
+Adamax,0.0001,15,128
+Adamax,0.0001,15,256
+Adamax,0.0001,20,8
+Adamax,0.0001,20,16
+Adamax,0.0001,20,32
+Adamax,0.0001,20,64
+Adamax,0.0001,20,128
+Adamax,0.0001,20,256
+Adamax,0.0001,25,8
+Adamax,0.0001,25,16
+Adamax,0.0001,25,32
+Adamax,0.0001,25,64
+Adamax,0.0001,25,128
+Adamax,0.0001,25,256
+Adamax,0.0001,30,8
+Adamax,0.0001,30,16
+Adamax,0.0001,30,32
+Adamax,0.0001,30,64
+Adamax,0.0001,30,128
+Adamax,0.0001,30,256
+Adamax,3e-05,5,8
+Adamax,3e-05,5,16
+Adamax,3e-05,5,32
+Adamax,3e-05,5,64
+Adamax,3e-05,5,128
+Adamax,3e-05,5,256
+Adamax,3e-05,10,8
+Adamax,3e-05,10,16
+Adamax,3e-05,10,32
+Adamax,3e-05,10,64
+Adamax,3e-05,10,128
+Adamax,3e-05,10,256
+Adamax,3e-05,15,8
+Adamax,3e-05,15,16
+Adamax,3e-05,15,32
+Adamax,3e-05,15,64
+Adamax,3e-05,15,128
+Adamax,3e-05,15,256
+Adamax,3e-05,20,8
+Adamax,3e-05,20,16
+Adamax,3e-05,20,32
+Adamax,3e-05,20,64
+Adamax,3e-05,20,128
+Adamax,3e-05,20,256
+Adamax,3e-05,25,8
+Adamax,3e-05,25,16
+Adamax,3e-05,25,32
+Adamax,3e-05,25,64
+Adamax,3e-05,25,128
+Adamax,3e-05,25,256
+Adamax,3e-05,30,8
+Adamax,3e-05,30,16
+Adamax,3e-05,30,32
+Adamax,3e-05,30,64
+Adamax,3e-05,30,128
+Adamax,3e-05,30,256
+Adamax,1e-05,5,8
+Adamax,1e-05,5,16
+Adamax,1e-05,5,32
+Adamax,1e-05,5,64
+Adamax,1e-05,5,128
+Adamax,1e-05,5,256
+Adamax,1e-05,10,8
+Adamax,1e-05,10,16
+Adamax,1e-05,10,32
+Adamax,1e-05,10,64
+Adamax,1e-05,10,128
+Adamax,1e-05,10,256
+Adamax,1e-05,15,8
+Adamax,1e-05,15,16
+Adamax,1e-05,15,32
+Adamax,1e-05,15,64
+Adamax,1e-05,15,128
+Adamax,1e-05,15,256
+Adamax,1e-05,20,8
+Adamax,1e-05,20,16
+Adamax,1e-05,20,32
+Adamax,1e-05,20,64
+Adamax,1e-05,20,128
+Adamax,1e-05,20,256
+Adamax,1e-05,25,8
+Adamax,1e-05,25,16
+Adamax,1e-05,25,32
+Adamax,1e-05,25,64
+Adamax,1e-05,25,128
+Adamax,1e-05,25,256
+Adamax,1e-05,30,8
+Adamax,1e-05,30,16
+Adamax,1e-05,30,32
+Adamax,1e-05,30,64
+Adamax,1e-05,30,128
+Adamax,1e-05,30,256
+Adamax,1e-06,5,8
+Adamax,1e-06,5,16
+Adamax,1e-06,5,32
+Adamax,1e-06,5,64
+Adamax,1e-06,5,128
+Adamax,1e-06,5,256
+Adamax,1e-06,10,8
+Adamax,1e-06,10,16
+Adamax,1e-06,10,32
+Adamax,1e-06,10,64
+Adamax,1e-06,10,128
+Adamax,1e-06,10,256
+Adamax,1e-06,15,8
+Adamax,1e-06,15,16
+Adamax,1e-06,15,32
+Adamax,1e-06,15,64
+Adamax,1e-06,15,128
+Adamax,1e-06,15,256
+Adamax,1e-06,20,8
+Adamax,1e-06,20,16
+Adamax,1e-06,20,32
+Adamax,1e-06,20,64
+Adamax,1e-06,20,128
+Adamax,1e-06,20,256
+Adamax,1e-06,25,8
+Adamax,1e-06,25,16
+Adamax,1e-06,25,32
+Adamax,1e-06,25,64
+Adamax,1e-06,25,128
+Adamax,1e-06,25,256
+Adamax,1e-06,30,8
+Adamax,1e-06,30,16
+Adamax,1e-06,30,32
+Adamax,1e-06,30,64
+Adamax,1e-06,30,128
+Adamax,1e-06,30,256
+Adagrad,0.01,5,8
+Adagrad,0.01,5,16
+Adagrad,0.01,5,32
+Adagrad,0.01,5,64
+Adagrad,0.01,5,128
+Adagrad,0.01,5,256
+Adagrad,0.01,10,8
+Adagrad,0.01,10,16
+Adagrad,0.01,10,32
+Adagrad,0.01,10,64
+Adagrad,0.01,10,128
+Adagrad,0.01,10,256
+Adagrad,0.01,15,8
+Adagrad,0.01,15,16
+Adagrad,0.01,15,32
+Adagrad,0.01,15,64
+Adagrad,0.01,15,128
+Adagrad,0.01,15,256
+Adagrad,0.01,20,8
+Adagrad,0.01,20,16
+Adagrad,0.01,20,32
+Adagrad,0.01,20,64
+Adagrad,0.01,20,128
+Adagrad,0.01,20,256
+Adagrad,0.01,25,8
+Adagrad,0.01,25,16
+Adagrad,0.01,25,32
+Adagrad,0.01,25,64
+Adagrad,0.01,25,128
+Adagrad,0.01,25,256
+Adagrad,0.01,30,8
+Adagrad,0.01,30,16
+Adagrad,0.01,30,32
+Adagrad,0.01,30,64
+Adagrad,0.01,30,128
+Adagrad,0.01,30,256
+Adagrad,0.001,5,8
+Adagrad,0.001,5,16
+Adagrad,0.001,5,32
+Adagrad,0.001,5,64
+Adagrad,0.001,5,128
+Adagrad,0.001,5,256
+Adagrad,0.001,10,8
+Adagrad,0.001,10,16
+Adagrad,0.001,10,32
+Adagrad,0.001,10,64
+Adagrad,0.001,10,128
+Adagrad,0.001,10,256
+Adagrad,0.001,15,8
+Adagrad,0.001,15,16
+Adagrad,0.001,15,32
+Adagrad,0.001,15,64
+Adagrad,0.001,15,128
+Adagrad,0.001,15,256
+Adagrad,0.001,20,8
+Adagrad,0.001,20,16
+Adagrad,0.001,20,32
+Adagrad,0.001,20,64
+Adagrad,0.001,20,128
+Adagrad,0.001,20,256
+Adagrad,0.001,25,8
+Adagrad,0.001,25,16
+Adagrad,0.001,25,32
+Adagrad,0.001,25,64
+Adagrad,0.001,25,128
+Adagrad,0.001,25,256
+Adagrad,0.001,30,8
+Adagrad,0.001,30,16
+Adagrad,0.001,30,32
+Adagrad,0.001,30,64
+Adagrad,0.001,30,128
+Adagrad,0.001,30,256
+Adagrad,0.0001,5,8
+Adagrad,0.0001,5,16
+Adagrad,0.0001,5,32
+Adagrad,0.0001,5,64
+Adagrad,0.0001,5,128
+Adagrad,0.0001,5,256
+Adagrad,0.0001,10,8
+Adagrad,0.0001,10,16
+Adagrad,0.0001,10,32
+Adagrad,0.0001,10,64
+Adagrad,0.0001,10,128
+Adagrad,0.0001,10,256
+Adagrad,0.0001,15,8
+Adagrad,0.0001,15,16
+Adagrad,0.0001,15,32
+Adagrad,0.0001,15,64
+Adagrad,0.0001,15,128
+Adagrad,0.0001,15,256
+Adagrad,0.0001,20,8
+Adagrad,0.0001,20,16
+Adagrad,0.0001,20,32
+Adagrad,0.0001,20,64
+Adagrad,0.0001,20,128
+Adagrad,0.0001,20,256
+Adagrad,0.0001,25,8
+Adagrad,0.0001,25,16
+Adagrad,0.0001,25,32
+Adagrad,0.0001,25,64
+Adagrad,0.0001,25,128
+Adagrad,0.0001,25,256
+Adagrad,0.0001,30,8
+Adagrad,0.0001,30,16
+Adagrad,0.0001,30,32
+Adagrad,0.0001,30,64
+Adagrad,0.0001,30,128
+Adagrad,0.0001,30,256
+Adagrad,3e-05,5,8
+Adagrad,3e-05,5,16
+Adagrad,3e-05,5,32
+Adagrad,3e-05,5,64
+Adagrad,3e-05,5,128
+Adagrad,3e-05,5,256
+Adagrad,3e-05,10,8
+Adagrad,3e-05,10,16
+Adagrad,3e-05,10,32
+Adagrad,3e-05,10,64
+Adagrad,3e-05,10,128
+Adagrad,3e-05,10,256
+Adagrad,3e-05,15,8
+Adagrad,3e-05,15,16
+Adagrad,3e-05,15,32
+Adagrad,3e-05,15,64
+Adagrad,3e-05,15,128
+Adagrad,3e-05,15,256
+Adagrad,3e-05,20,8
+Adagrad,3e-05,20,16
+Adagrad,3e-05,20,32
+Adagrad,3e-05,20,64
+Adagrad,3e-05,20,128
+Adagrad,3e-05,20,256
+Adagrad,3e-05,25,8
+Adagrad,3e-05,25,16
+Adagrad,3e-05,25,32
+Adagrad,3e-05,25,64
+Adagrad,3e-05,25,128
+Adagrad,3e-05,25,256
+Adagrad,3e-05,30,8
+Adagrad,3e-05,30,16
+Adagrad,3e-05,30,32
+Adagrad,3e-05,30,64
+Adagrad,3e-05,30,128
+Adagrad,3e-05,30,256
+Adagrad,1e-05,5,8
+Adagrad,1e-05,5,16
+Adagrad,1e-05,5,32
+Adagrad,1e-05,5,64
+Adagrad,1e-05,5,128
+Adagrad,1e-05,5,256
+Adagrad,1e-05,10,8
+Adagrad,1e-05,10,16
+Adagrad,1e-05,10,32
+Adagrad,1e-05,10,64
+Adagrad,1e-05,10,128
+Adagrad,1e-05,10,256
+Adagrad,1e-05,15,8
+Adagrad,1e-05,15,16
+Adagrad,1e-05,15,32
+Adagrad,1e-05,15,64
+Adagrad,1e-05,15,128
+Adagrad,1e-05,15,256
+Adagrad,1e-05,20,8
+Adagrad,1e-05,20,16
+Adagrad,1e-05,20,32
+Adagrad,1e-05,20,64
+Adagrad,1e-05,20,128
+Adagrad,1e-05,20,256
+Adagrad,1e-05,25,8
+Adagrad,1e-05,25,16
+Adagrad,1e-05,25,32
+Adagrad,1e-05,25,64
+Adagrad,1e-05,25,128
+Adagrad,1e-05,25,256
+Adagrad,1e-05,30,8
+Adagrad,1e-05,30,16
+Adagrad,1e-05,30,32
+Adagrad,1e-05,30,64
+Adagrad,1e-05,30,128
+Adagrad,1e-05,30,256
+Adagrad,1e-06,5,8
+Adagrad,1e-06,5,16
+Adagrad,1e-06,5,32
+Adagrad,1e-06,5,64
+Adagrad,1e-06,5,128
+Adagrad,1e-06,5,256
+Adagrad,1e-06,10,8
+Adagrad,1e-06,10,16
+Adagrad,1e-06,10,32
+Adagrad,1e-06,10,64
+Adagrad,1e-06,10,128
+Adagrad,1e-06,10,256
+Adagrad,1e-06,15,8
+Adagrad,1e-06,15,16
+Adagrad,1e-06,15,32
+Adagrad,1e-06,15,64
+Adagrad,1e-06,15,128
+Adagrad,1e-06,15,256
+Adagrad,1e-06,20,8
+Adagrad,1e-06,20,16
+Adagrad,1e-06,20,32
+Adagrad,1e-06,20,64
+Adagrad,1e-06,20,128
+Adagrad,1e-06,20,256
+Adagrad,1e-06,25,8
+Adagrad,1e-06,25,16
+Adagrad,1e-06,25,32
+Adagrad,1e-06,25,64
+Adagrad,1e-06,25,128
+Adagrad,1e-06,25,256
+Adagrad,1e-06,30,8
+Adagrad,1e-06,30,16
+Adagrad,1e-06,30,32
+Adagrad,1e-06,30,64
+Adagrad,1e-06,30,128
+Adagrad,1e-06,30,256
+RMSprop,0.01,5,8
+RMSprop,0.01,5,16
+RMSprop,0.01,5,32
+RMSprop,0.01,5,64
+RMSprop,0.01,5,128
+RMSprop,0.01,5,256
+RMSprop,0.01,10,8
+RMSprop,0.01,10,16
+RMSprop,0.01,10,32
+RMSprop,0.01,10,64
+RMSprop,0.01,10,128
+RMSprop,0.01,10,256
+RMSprop,0.01,15,8
+RMSprop,0.01,15,16
+RMSprop,0.01,15,32
+RMSprop,0.01,15,64
+RMSprop,0.01,15,128
+RMSprop,0.01,15,256
+RMSprop,0.01,20,8
+RMSprop,0.01,20,16
+RMSprop,0.01,20,32
+RMSprop,0.01,20,64
+RMSprop,0.01,20,128
+RMSprop,0.01,20,256
+RMSprop,0.01,25,8
+RMSprop,0.01,25,16
+RMSprop,0.01,25,32
+RMSprop,0.01,25,64
+RMSprop,0.01,25,128
+RMSprop,0.01,25,256
+RMSprop,0.01,30,8
+RMSprop,0.01,30,16
+RMSprop,0.01,30,32
+RMSprop,0.01,30,64
+RMSprop,0.01,30,128
+RMSprop,0.01,30,256
+RMSprop,0.001,5,8
+RMSprop,0.001,5,16
+RMSprop,0.001,5,32
+RMSprop,0.001,5,64
+RMSprop,0.001,5,128
+RMSprop,0.001,5,256
+RMSprop,0.001,10,8
+RMSprop,0.001,10,16
+RMSprop,0.001,10,32
+RMSprop,0.001,10,64
+RMSprop,0.001,10,128
+RMSprop,0.001,10,256
+RMSprop,0.001,15,8
+RMSprop,0.001,15,16
+RMSprop,0.001,15,32
+RMSprop,0.001,15,64
+RMSprop,0.001,15,128
+RMSprop,0.001,15,256
+RMSprop,0.001,20,8
+RMSprop,0.001,20,16
+RMSprop,0.001,20,32
+RMSprop,0.001,20,64
+RMSprop,0.001,20,128
+RMSprop,0.001,20,256
+RMSprop,0.001,25,8
+RMSprop,0.001,25,16
+RMSprop,0.001,25,32
+RMSprop,0.001,25,64
+RMSprop,0.001,25,128
+RMSprop,0.001,25,256
+RMSprop,0.001,30,8
+RMSprop,0.001,30,16
+RMSprop,0.001,30,32
+RMSprop,0.001,30,64
+RMSprop,0.001,30,128
+RMSprop,0.001,30,256
+RMSprop,0.0001,5,8
+RMSprop,0.0001,5,16
+RMSprop,0.0001,5,32
+RMSprop,0.0001,5,64
+RMSprop,0.0001,5,128
+RMSprop,0.0001,5,256
+RMSprop,0.0001,10,8
+RMSprop,0.0001,10,16
+RMSprop,0.0001,10,32
+RMSprop,0.0001,10,64
+RMSprop,0.0001,10,128
+RMSprop,0.0001,10,256
+RMSprop,0.0001,15,8
+RMSprop,0.0001,15,16
+RMSprop,0.0001,15,32
+RMSprop,0.0001,15,64
+RMSprop,0.0001,15,128
+RMSprop,0.0001,15,256
+RMSprop,0.0001,20,8
+RMSprop,0.0001,20,16
+RMSprop,0.0001,20,32
+RMSprop,0.0001,20,64
+RMSprop,0.0001,20,128
+RMSprop,0.0001,20,256
+RMSprop,0.0001,25,8
+RMSprop,0.0001,25,16
+RMSprop,0.0001,25,32
+RMSprop,0.0001,25,64
+RMSprop,0.0001,25,128
+RMSprop,0.0001,25,256
+RMSprop,0.0001,30,8
+RMSprop,0.0001,30,16
+RMSprop,0.0001,30,32
+RMSprop,0.0001,30,64
+RMSprop,0.0001,30,128
+RMSprop,0.0001,30,256
+RMSprop,3e-05,5,8
+RMSprop,3e-05,5,16
+RMSprop,3e-05,5,32
+RMSprop,3e-05,5,64
+RMSprop,3e-05,5,128
+RMSprop,3e-05,5,256
+RMSprop,3e-05,10,8
+RMSprop,3e-05,10,16
+RMSprop,3e-05,10,32
+RMSprop,3e-05,10,64
+RMSprop,3e-05,10,128
+RMSprop,3e-05,10,256
+RMSprop,3e-05,15,8
+RMSprop,3e-05,15,16
+RMSprop,3e-05,15,32
+RMSprop,3e-05,15,64
+RMSprop,3e-05,15,128
+RMSprop,3e-05,15,256
+RMSprop,3e-05,20,8
+RMSprop,3e-05,20,16
+RMSprop,3e-05,20,32
+RMSprop,3e-05,20,64
+RMSprop,3e-05,20,128
+RMSprop,3e-05,20,256
+RMSprop,3e-05,25,8
+RMSprop,3e-05,25,16
+RMSprop,3e-05,25,32
+RMSprop,3e-05,25,64
+RMSprop,3e-05,25,128
+RMSprop,3e-05,25,256
+RMSprop,3e-05,30,8
+RMSprop,3e-05,30,16
+RMSprop,3e-05,30,32
+RMSprop,3e-05,30,64
+RMSprop,3e-05,30,128
+RMSprop,3e-05,30,256
+RMSprop,1e-05,5,8
+RMSprop,1e-05,5,16
+RMSprop,1e-05,5,32
+RMSprop,1e-05,5,64
+RMSprop,1e-05,5,128
+RMSprop,1e-05,5,256
+RMSprop,1e-05,10,8
+RMSprop,1e-05,10,16
+RMSprop,1e-05,10,32
+RMSprop,1e-05,10,64
+RMSprop,1e-05,10,128
+RMSprop,1e-05,10,256
+RMSprop,1e-05,15,8
+RMSprop,1e-05,15,16
+RMSprop,1e-05,15,32
+RMSprop,1e-05,15,64
+RMSprop,1e-05,15,128
+RMSprop,1e-05,15,256
+RMSprop,1e-05,20,8
+RMSprop,1e-05,20,16
+RMSprop,1e-05,20,32
+RMSprop,1e-05,20,64
+RMSprop,1e-05,20,128
+RMSprop,1e-05,20,256
+RMSprop,1e-05,25,8
+RMSprop,1e-05,25,16
+RMSprop,1e-05,25,32
+RMSprop,1e-05,25,64
+RMSprop,1e-05,25,128
+RMSprop,1e-05,25,256
+RMSprop,1e-05,30,8
+RMSprop,1e-05,30,16
+RMSprop,1e-05,30,32
+RMSprop,1e-05,30,64
+RMSprop,1e-05,30,128
+RMSprop,1e-05,30,256
+RMSprop,1e-06,5,8
+RMSprop,1e-06,5,16
+RMSprop,1e-06,5,32
+RMSprop,1e-06,5,64
+RMSprop,1e-06,5,128
+RMSprop,1e-06,5,256
+RMSprop,1e-06,10,8
+RMSprop,1e-06,10,16
+RMSprop,1e-06,10,32
+RMSprop,1e-06,10,64
+RMSprop,1e-06,10,128
+RMSprop,1e-06,10,256
+RMSprop,1e-06,15,8
+RMSprop,1e-06,15,16
+RMSprop,1e-06,15,32
+RMSprop,1e-06,15,64
+RMSprop,1e-06,15,128
+RMSprop,1e-06,15,256
+RMSprop,1e-06,20,8
+RMSprop,1e-06,20,16
+RMSprop,1e-06,20,32
+RMSprop,1e-06,20,64
+RMSprop,1e-06,20,128
+RMSprop,1e-06,20,256
+RMSprop,1e-06,25,8
+RMSprop,1e-06,25,16
+RMSprop,1e-06,25,32
+RMSprop,1e-06,25,64
+RMSprop,1e-06,25,128
+RMSprop,1e-06,25,256
+RMSprop,1e-06,30,8
+RMSprop,1e-06,30,16
+RMSprop,1e-06,30,32
+RMSprop,1e-06,30,64
+RMSprop,1e-06,30,128
+RMSprop,1e-06,30,256
+SGD (Stochastic Gradient Descent),0.01,5,8
+SGD (Stochastic Gradient Descent),0.01,5,16
+SGD (Stochastic Gradient Descent),0.01,5,32
+SGD (Stochastic Gradient Descent),0.01,5,64
+SGD (Stochastic Gradient Descent),0.01,5,128
+SGD (Stochastic Gradient Descent),0.01,5,256
+SGD (Stochastic Gradient Descent),0.01,10,8
+SGD (Stochastic Gradient Descent),0.01,10,16
+SGD (Stochastic Gradient Descent),0.01,10,32
+SGD (Stochastic Gradient Descent),0.01,10,64
+SGD (Stochastic Gradient Descent),0.01,10,128
+SGD (Stochastic Gradient Descent),0.01,10,256
+SGD (Stochastic Gradient Descent),0.01,15,8
+SGD (Stochastic Gradient Descent),0.01,15,16
+SGD (Stochastic Gradient Descent),0.01,15,32
+SGD (Stochastic Gradient Descent),0.01,15,64
+SGD (Stochastic Gradient Descent),0.01,15,128
+SGD (Stochastic Gradient Descent),0.01,15,256
+SGD (Stochastic Gradient Descent),0.01,20,8
+SGD (Stochastic Gradient Descent),0.01,20,16
+SGD (Stochastic Gradient Descent),0.01,20,32
+SGD (Stochastic Gradient Descent),0.01,20,64
+SGD (Stochastic Gradient Descent),0.01,20,128
+SGD (Stochastic Gradient Descent),0.01,20,256
+SGD (Stochastic Gradient Descent),0.01,25,8
+SGD (Stochastic Gradient Descent),0.01,25,16
+SGD (Stochastic Gradient Descent),0.01,25,32
+SGD (Stochastic Gradient Descent),0.01,25,64
+SGD (Stochastic Gradient Descent),0.01,25,128
+SGD (Stochastic Gradient Descent),0.01,25,256
+SGD (Stochastic Gradient Descent),0.01,30,8
+SGD (Stochastic Gradient Descent),0.01,30,16
+SGD (Stochastic Gradient Descent),0.01,30,32
+SGD (Stochastic Gradient Descent),0.01,30,64
+SGD (Stochastic Gradient Descent),0.01,30,128
+SGD (Stochastic Gradient Descent),0.01,30,256
+SGD (Stochastic Gradient Descent),0.001,5,8
+SGD (Stochastic Gradient Descent),0.001,5,16
+SGD (Stochastic Gradient Descent),0.001,5,32
+SGD (Stochastic Gradient Descent),0.001,5,64
+SGD (Stochastic Gradient Descent),0.001,5,128
+SGD (Stochastic Gradient Descent),0.001,5,256
+SGD (Stochastic Gradient Descent),0.001,10,8
+SGD (Stochastic Gradient Descent),0.001,10,16
+SGD (Stochastic Gradient Descent),0.001,10,32
+SGD (Stochastic Gradient Descent),0.001,10,64
+SGD (Stochastic Gradient Descent),0.001,10,128
+SGD (Stochastic Gradient Descent),0.001,10,256
+SGD (Stochastic Gradient Descent),0.001,15,8
+SGD (Stochastic Gradient Descent),0.001,15,16
+SGD (Stochastic Gradient Descent),0.001,15,32
+SGD (Stochastic Gradient Descent),0.001,15,64
+SGD (Stochastic Gradient Descent),0.001,15,128
+SGD (Stochastic Gradient Descent),0.001,15,256
+SGD (Stochastic Gradient Descent),0.001,20,8
+SGD (Stochastic Gradient Descent),0.001,20,16
+SGD (Stochastic Gradient Descent),0.001,20,32
+SGD (Stochastic Gradient Descent),0.001,20,64
+SGD (Stochastic Gradient Descent),0.001,20,128
+SGD (Stochastic Gradient Descent),0.001,20,256
+SGD (Stochastic Gradient Descent),0.001,25,8
+SGD (Stochastic Gradient Descent),0.001,25,16
+SGD (Stochastic Gradient Descent),0.001,25,32
+SGD (Stochastic Gradient Descent),0.001,25,64
+SGD (Stochastic Gradient Descent),0.001,25,128
+SGD (Stochastic Gradient Descent),0.001,25,256
+SGD (Stochastic Gradient Descent),0.001,30,8
+SGD (Stochastic Gradient Descent),0.001,30,16
+SGD (Stochastic Gradient Descent),0.001,30,32
+SGD (Stochastic Gradient Descent),0.001,30,64
+SGD (Stochastic Gradient Descent),0.001,30,128
+SGD (Stochastic Gradient Descent),0.001,30,256
+SGD (Stochastic Gradient Descent),0.0001,5,8
+SGD (Stochastic Gradient Descent),0.0001,5,16
+SGD (Stochastic Gradient Descent),0.0001,5,32
+SGD (Stochastic Gradient Descent),0.0001,5,64
+SGD (Stochastic Gradient Descent),0.0001,5,128
+SGD (Stochastic Gradient Descent),0.0001,5,256
+SGD (Stochastic Gradient Descent),0.0001,10,8
+SGD (Stochastic Gradient Descent),0.0001,10,16
+SGD (Stochastic Gradient Descent),0.0001,10,32
+SGD (Stochastic Gradient Descent),0.0001,10,64
+SGD (Stochastic Gradient Descent),0.0001,10,128
+SGD (Stochastic Gradient Descent),0.0001,10,256
+SGD (Stochastic Gradient Descent),0.0001,15,8
+SGD (Stochastic Gradient Descent),0.0001,15,16
+SGD (Stochastic Gradient Descent),0.0001,15,32
+SGD (Stochastic Gradient Descent),0.0001,15,64
+SGD (Stochastic Gradient Descent),0.0001,15,128
+SGD (Stochastic Gradient Descent),0.0001,15,256
+SGD (Stochastic Gradient Descent),0.0001,20,8
+SGD (Stochastic Gradient Descent),0.0001,20,16
+SGD (Stochastic Gradient Descent),0.0001,20,32
+SGD (Stochastic Gradient Descent),0.0001,20,64
+SGD (Stochastic Gradient Descent),0.0001,20,128
+SGD (Stochastic Gradient Descent),0.0001,20,256
+SGD (Stochastic Gradient Descent),0.0001,25,8
+SGD (Stochastic Gradient Descent),0.0001,25,16
+SGD (Stochastic Gradient Descent),0.0001,25,32
+SGD (Stochastic Gradient Descent),0.0001,25,64
+SGD (Stochastic Gradient Descent),0.0001,25,128
+SGD (Stochastic Gradient Descent),0.0001,25,256
+SGD (Stochastic Gradient Descent),0.0001,30,8
+SGD (Stochastic Gradient Descent),0.0001,30,16
+SGD (Stochastic Gradient Descent),0.0001,30,32
+SGD (Stochastic Gradient Descent),0.0001,30,64
+SGD (Stochastic Gradient Descent),0.0001,30,128
+SGD (Stochastic Gradient Descent),0.0001,30,256
+SGD (Stochastic Gradient Descent),3e-05,5,8
+SGD (Stochastic Gradient Descent),3e-05,5,16
+SGD (Stochastic Gradient Descent),3e-05,5,32
+SGD (Stochastic Gradient Descent),3e-05,5,64
+SGD (Stochastic Gradient Descent),3e-05,5,128
+SGD (Stochastic Gradient Descent),3e-05,5,256
+SGD (Stochastic Gradient Descent),3e-05,10,8
+SGD (Stochastic Gradient Descent),3e-05,10,16
+SGD (Stochastic Gradient Descent),3e-05,10,32
+SGD (Stochastic Gradient Descent),3e-05,10,64
+SGD (Stochastic Gradient Descent),3e-05,10,128
+SGD (Stochastic Gradient Descent),3e-05,10,256
+SGD (Stochastic Gradient Descent),3e-05,15,8
+SGD (Stochastic Gradient Descent),3e-05,15,16
+SGD (Stochastic Gradient Descent),3e-05,15,32
+SGD (Stochastic Gradient Descent),3e-05,15,64
+SGD (Stochastic Gradient Descent),3e-05,15,128
+SGD (Stochastic Gradient Descent),3e-05,15,256
+SGD (Stochastic Gradient Descent),3e-05,20,8
+SGD (Stochastic Gradient Descent),3e-05,20,16
+SGD (Stochastic Gradient Descent),3e-05,20,32
+SGD (Stochastic Gradient Descent),3e-05,20,64
+SGD (Stochastic Gradient Descent),3e-05,20,128
+SGD (Stochastic Gradient Descent),3e-05,20,256
+SGD (Stochastic Gradient Descent),3e-05,25,8
+SGD (Stochastic Gradient Descent),3e-05,25,16
+SGD (Stochastic Gradient Descent),3e-05,25,32
+SGD (Stochastic Gradient Descent),3e-05,25,64
+SGD (Stochastic Gradient Descent),3e-05,25,128
+SGD (Stochastic Gradient Descent),3e-05,25,256
+SGD (Stochastic Gradient Descent),3e-05,30,8
+SGD (Stochastic Gradient Descent),3e-05,30,16
+SGD (Stochastic Gradient Descent),3e-05,30,32
+SGD (Stochastic Gradient Descent),3e-05,30,64
+SGD (Stochastic Gradient Descent),3e-05,30,128
+SGD (Stochastic Gradient Descent),3e-05,30,256
+SGD (Stochastic Gradient Descent),1e-05,5,8
+SGD (Stochastic Gradient Descent),1e-05,5,16
+SGD (Stochastic Gradient Descent),1e-05,5,32
+SGD (Stochastic Gradient Descent),1e-05,5,64
+SGD (Stochastic Gradient Descent),1e-05,5,128
+SGD (Stochastic Gradient Descent),1e-05,5,256
+SGD (Stochastic Gradient Descent),1e-05,10,8
+SGD (Stochastic Gradient Descent),1e-05,10,16
+SGD (Stochastic Gradient Descent),1e-05,10,32
+SGD (Stochastic Gradient Descent),1e-05,10,64
+SGD (Stochastic Gradient Descent),1e-05,10,128
+SGD (Stochastic Gradient Descent),1e-05,10,256
+SGD (Stochastic Gradient Descent),1e-05,15,8
+SGD (Stochastic Gradient Descent),1e-05,15,16
+SGD (Stochastic Gradient Descent),1e-05,15,32
+SGD (Stochastic Gradient Descent),1e-05,15,64
+SGD (Stochastic Gradient Descent),1e-05,15,128
+SGD (Stochastic Gradient Descent),1e-05,15,256
+SGD (Stochastic Gradient Descent),1e-05,20,8
+SGD (Stochastic Gradient Descent),1e-05,20,16
+SGD (Stochastic Gradient Descent),1e-05,20,32
+SGD (Stochastic Gradient Descent),1e-05,20,64
+SGD (Stochastic Gradient Descent),1e-05,20,128
+SGD (Stochastic Gradient Descent),1e-05,20,256
+SGD (Stochastic Gradient Descent),1e-05,25,8
+SGD (Stochastic Gradient Descent),1e-05,25,16
+SGD (Stochastic Gradient Descent),1e-05,25,32
+SGD (Stochastic Gradient Descent),1e-05,25,64
+SGD (Stochastic Gradient Descent),1e-05,25,128
+SGD (Stochastic Gradient Descent),1e-05,25,256
+SGD (Stochastic Gradient Descent),1e-05,30,8
+SGD (Stochastic Gradient Descent),1e-05,30,16
+SGD (Stochastic Gradient Descent),1e-05,30,32
+SGD (Stochastic Gradient Descent),1e-05,30,64
+SGD (Stochastic Gradient Descent),1e-05,30,128
+SGD (Stochastic Gradient Descent),1e-05,30,256
+SGD (Stochastic Gradient Descent),1e-06,5,8
+SGD (Stochastic Gradient Descent),1e-06,5,16
+SGD (Stochastic Gradient Descent),1e-06,5,32
+SGD (Stochastic Gradient Descent),1e-06,5,64
+SGD (Stochastic Gradient Descent),1e-06,5,128
+SGD (Stochastic Gradient Descent),1e-06,5,256
+SGD (Stochastic Gradient Descent),1e-06,10,8
+SGD (Stochastic Gradient Descent),1e-06,10,16
+SGD (Stochastic Gradient Descent),1e-06,10,32
+SGD (Stochastic Gradient Descent),1e-06,10,64
+SGD (Stochastic Gradient Descent),1e-06,10,128
+SGD (Stochastic Gradient Descent),1e-06,10,256
+SGD (Stochastic Gradient Descent),1e-06,15,8
+SGD (Stochastic Gradient Descent),1e-06,15,16
+SGD (Stochastic Gradient Descent),1e-06,15,32
+SGD (Stochastic Gradient Descent),1e-06,15,64
+SGD (Stochastic Gradient Descent),1e-06,15,128
+SGD (Stochastic Gradient Descent),1e-06,15,256
+SGD (Stochastic Gradient Descent),1e-06,20,8
+SGD (Stochastic Gradient Descent),1e-06,20,16
+SGD (Stochastic Gradient Descent),1e-06,20,32
+SGD (Stochastic Gradient Descent),1e-06,20,64
+SGD (Stochastic Gradient Descent),1e-06,20,128
+SGD (Stochastic Gradient Descent),1e-06,20,256
+SGD (Stochastic Gradient Descent),1e-06,25,8
+SGD (Stochastic Gradient Descent),1e-06,25,16
+SGD (Stochastic Gradient Descent),1e-06,25,32
+SGD (Stochastic Gradient Descent),1e-06,25,64
+SGD (Stochastic Gradient Descent),1e-06,25,128
+SGD (Stochastic Gradient Descent),1e-06,25,256
+SGD (Stochastic Gradient Descent),1e-06,30,8
+SGD (Stochastic Gradient Descent),1e-06,30,16
+SGD (Stochastic Gradient Descent),1e-06,30,32
+SGD (Stochastic Gradient Descent),1e-06,30,64
+SGD (Stochastic Gradient Descent),1e-06,30,128
+SGD (Stochastic Gradient Descent),1e-06,30,256
+FTRL (Follow-The-Regularized-Leader),0.01,5,8
+FTRL (Follow-The-Regularized-Leader),0.01,5,16
+FTRL (Follow-The-Regularized-Leader),0.01,5,32
+FTRL (Follow-The-Regularized-Leader),0.01,5,64
+FTRL (Follow-The-Regularized-Leader),0.01,5,128
+FTRL (Follow-The-Regularized-Leader),0.01,5,256
+FTRL (Follow-The-Regularized-Leader),0.01,10,8
+FTRL (Follow-The-Regularized-Leader),0.01,10,16
+FTRL (Follow-The-Regularized-Leader),0.01,10,32
+FTRL (Follow-The-Regularized-Leader),0.01,10,64
+FTRL (Follow-The-Regularized-Leader),0.01,10,128
+FTRL (Follow-The-Regularized-Leader),0.01,10,256
+FTRL (Follow-The-Regularized-Leader),0.01,15,8
+FTRL (Follow-The-Regularized-Leader),0.01,15,16
+FTRL (Follow-The-Regularized-Leader),0.01,15,32
+FTRL (Follow-The-Regularized-Leader),0.01,15,64
+FTRL (Follow-The-Regularized-Leader),0.01,15,128
+FTRL (Follow-The-Regularized-Leader),0.01,15,256
+FTRL (Follow-The-Regularized-Leader),0.01,20,8
+FTRL (Follow-The-Regularized-Leader),0.01,20,16
+FTRL (Follow-The-Regularized-Leader),0.01,20,32
+FTRL (Follow-The-Regularized-Leader),0.01,20,64
+FTRL (Follow-The-Regularized-Leader),0.01,20,128
+FTRL (Follow-The-Regularized-Leader),0.01,20,256
+FTRL (Follow-The-Regularized-Leader),0.01,25,8
+FTRL (Follow-The-Regularized-Leader),0.01,25,16
+FTRL (Follow-The-Regularized-Leader),0.01,25,32
+FTRL (Follow-The-Regularized-Leader),0.01,25,64
+FTRL (Follow-The-Regularized-Leader),0.01,25,128
+FTRL (Follow-The-Regularized-Leader),0.01,25,256
+FTRL (Follow-The-Regularized-Leader),0.01,30,8
+FTRL (Follow-The-Regularized-Leader),0.01,30,16
+FTRL (Follow-The-Regularized-Leader),0.01,30,32
+FTRL (Follow-The-Regularized-Leader),0.01,30,64
+FTRL (Follow-The-Regularized-Leader),0.01,30,128
+FTRL (Follow-The-Regularized-Leader),0.01,30,256
+FTRL (Follow-The-Regularized-Leader),0.001,5,8
+FTRL (Follow-The-Regularized-Leader),0.001,5,16
+FTRL (Follow-The-Regularized-Leader),0.001,5,32
+FTRL (Follow-The-Regularized-Leader),0.001,5,64
+FTRL (Follow-The-Regularized-Leader),0.001,5,128
+FTRL (Follow-The-Regularized-Leader),0.001,5,256
+FTRL (Follow-The-Regularized-Leader),0.001,10,8
+FTRL (Follow-The-Regularized-Leader),0.001,10,16
+FTRL (Follow-The-Regularized-Leader),0.001,10,32
+FTRL (Follow-The-Regularized-Leader),0.001,10,64
+FTRL (Follow-The-Regularized-Leader),0.001,10,128
+FTRL (Follow-The-Regularized-Leader),0.001,10,256
+FTRL (Follow-The-Regularized-Leader),0.001,15,8
+FTRL (Follow-The-Regularized-Leader),0.001,15,16
+FTRL (Follow-The-Regularized-Leader),0.001,15,32
+FTRL (Follow-The-Regularized-Leader),0.001,15,64
+FTRL (Follow-The-Regularized-Leader),0.001,15,128
+FTRL (Follow-The-Regularized-Leader),0.001,15,256
+FTRL (Follow-The-Regularized-Leader),0.001,20,8
+FTRL (Follow-The-Regularized-Leader),0.001,20,16
+FTRL (Follow-The-Regularized-Leader),0.001,20,32
+FTRL (Follow-The-Regularized-Leader),0.001,20,64
+FTRL (Follow-The-Regularized-Leader),0.001,20,128
+FTRL (Follow-The-Regularized-Leader),0.001,20,256
+FTRL (Follow-The-Regularized-Leader),0.001,25,8
+FTRL (Follow-The-Regularized-Leader),0.001,25,16
+FTRL (Follow-The-Regularized-Leader),0.001,25,32
+FTRL (Follow-The-Regularized-Leader),0.001,25,64
+FTRL (Follow-The-Regularized-Leader),0.001,25,128
+FTRL (Follow-The-Regularized-Leader),0.001,25,256
+FTRL (Follow-The-Regularized-Leader),0.001,30,8
+FTRL (Follow-The-Regularized-Leader),0.001,30,16
+FTRL (Follow-The-Regularized-Leader),0.001,30,32
+FTRL (Follow-The-Regularized-Leader),0.001,30,64
+FTRL (Follow-The-Regularized-Leader),0.001,30,128
+FTRL (Follow-The-Regularized-Leader),0.001,30,256
+FTRL (Follow-The-Regularized-Leader),0.0001,5,8
+FTRL (Follow-The-Regularized-Leader),0.0001,5,16
+FTRL (Follow-The-Regularized-Leader),0.0001,5,32
+FTRL (Follow-The-Regularized-Leader),0.0001,5,64
+FTRL (Follow-The-Regularized-Leader),0.0001,5,128
+FTRL (Follow-The-Regularized-Leader),0.0001,5,256
+FTRL (Follow-The-Regularized-Leader),0.0001,10,8
+FTRL (Follow-The-Regularized-Leader),0.0001,10,16
+FTRL (Follow-The-Regularized-Leader),0.0001,10,32
+FTRL (Follow-The-Regularized-Leader),0.0001,10,64
+FTRL (Follow-The-Regularized-Leader),0.0001,10,128
+FTRL (Follow-The-Regularized-Leader),0.0001,10,256
+FTRL (Follow-The-Regularized-Leader),0.0001,15,8
+FTRL (Follow-The-Regularized-Leader),0.0001,15,16
+FTRL (Follow-The-Regularized-Leader),0.0001,15,32
+FTRL (Follow-The-Regularized-Leader),0.0001,15,64
+FTRL (Follow-The-Regularized-Leader),0.0001,15,128
+FTRL (Follow-The-Regularized-Leader),0.0001,15,256
+FTRL (Follow-The-Regularized-Leader),0.0001,20,8
+FTRL (Follow-The-Regularized-Leader),0.0001,20,16
+FTRL (Follow-The-Regularized-Leader),0.0001,20,32
+FTRL (Follow-The-Regularized-Leader),0.0001,20,64
+FTRL (Follow-The-Regularized-Leader),0.0001,20,128
+FTRL (Follow-The-Regularized-Leader),0.0001,20,256
+FTRL (Follow-The-Regularized-Leader),0.0001,25,8
+FTRL (Follow-The-Regularized-Leader),0.0001,25,16
+FTRL (Follow-The-Regularized-Leader),0.0001,25,32
+FTRL (Follow-The-Regularized-Leader),0.0001,25,64
+FTRL (Follow-The-Regularized-Leader),0.0001,25,128
+FTRL (Follow-The-Regularized-Leader),0.0001,25,256
+FTRL (Follow-The-Regularized-Leader),0.0001,30,8
+FTRL (Follow-The-Regularized-Leader),0.0001,30,16
+FTRL (Follow-The-Regularized-Leader),0.0001,30,32
+FTRL (Follow-The-Regularized-Leader),0.0001,30,64
+FTRL (Follow-The-Regularized-Leader),0.0001,30,128
+FTRL (Follow-The-Regularized-Leader),0.0001,30,256
+FTRL (Follow-The-Regularized-Leader),3e-05,5,8
+FTRL (Follow-The-Regularized-Leader),3e-05,5,16
+FTRL (Follow-The-Regularized-Leader),3e-05,5,32
+FTRL (Follow-The-Regularized-Leader),3e-05,5,64
+FTRL (Follow-The-Regularized-Leader),3e-05,5,128
+FTRL (Follow-The-Regularized-Leader),3e-05,5,256
+FTRL (Follow-The-Regularized-Leader),3e-05,10,8
+FTRL (Follow-The-Regularized-Leader),3e-05,10,16
+FTRL (Follow-The-Regularized-Leader),3e-05,10,32
+FTRL (Follow-The-Regularized-Leader),3e-05,10,64
+FTRL (Follow-The-Regularized-Leader),3e-05,10,128
+FTRL (Follow-The-Regularized-Leader),3e-05,10,256
+FTRL (Follow-The-Regularized-Leader),3e-05,15,8
+FTRL (Follow-The-Regularized-Leader),3e-05,15,16
+FTRL (Follow-The-Regularized-Leader),3e-05,15,32
+FTRL (Follow-The-Regularized-Leader),3e-05,15,64
+FTRL (Follow-The-Regularized-Leader),3e-05,15,128
+FTRL (Follow-The-Regularized-Leader),3e-05,15,256
+FTRL (Follow-The-Regularized-Leader),3e-05,20,8
+FTRL (Follow-The-Regularized-Leader),3e-05,20,16
+FTRL (Follow-The-Regularized-Leader),3e-05,20,32
+FTRL (Follow-The-Regularized-Leader),3e-05,20,64
+FTRL (Follow-The-Regularized-Leader),3e-05,20,128
+FTRL (Follow-The-Regularized-Leader),3e-05,20,256
+FTRL (Follow-The-Regularized-Leader),3e-05,25,8
+FTRL (Follow-The-Regularized-Leader),3e-05,25,16
+FTRL (Follow-The-Regularized-Leader),3e-05,25,32
+FTRL (Follow-The-Regularized-Leader),3e-05,25,64
+FTRL (Follow-The-Regularized-Leader),3e-05,25,128
+FTRL (Follow-The-Regularized-Leader),3e-05,25,256
+FTRL (Follow-The-Regularized-Leader),3e-05,30,8
+FTRL (Follow-The-Regularized-Leader),3e-05,30,16
+FTRL (Follow-The-Regularized-Leader),3e-05,30,32
+FTRL (Follow-The-Regularized-Leader),3e-05,30,64
+FTRL (Follow-The-Regularized-Leader),3e-05,30,128
+FTRL (Follow-The-Regularized-Leader),3e-05,30,256
+FTRL (Follow-The-Regularized-Leader),1e-05,5,8
+FTRL (Follow-The-Regularized-Leader),1e-05,5,16
+FTRL (Follow-The-Regularized-Leader),1e-05,5,32
+FTRL (Follow-The-Regularized-Leader),1e-05,5,64
+FTRL (Follow-The-Regularized-Leader),1e-05,5,128
+FTRL (Follow-The-Regularized-Leader),1e-05,5,256
+FTRL (Follow-The-Regularized-Leader),1e-05,10,8
+FTRL (Follow-The-Regularized-Leader),1e-05,10,16
+FTRL (Follow-The-Regularized-Leader),1e-05,10,32
+FTRL (Follow-The-Regularized-Leader),1e-05,10,64
+FTRL (Follow-The-Regularized-Leader),1e-05,10,128
+FTRL (Follow-The-Regularized-Leader),1e-05,10,256
+FTRL (Follow-The-Regularized-Leader),1e-05,15,8
+FTRL (Follow-The-Regularized-Leader),1e-05,15,16
+FTRL (Follow-The-Regularized-Leader),1e-05,15,32
+FTRL (Follow-The-Regularized-Leader),1e-05,15,64
+FTRL (Follow-The-Regularized-Leader),1e-05,15,128
+FTRL (Follow-The-Regularized-Leader),1e-05,15,256
+FTRL (Follow-The-Regularized-Leader),1e-05,20,8
+FTRL (Follow-The-Regularized-Leader),1e-05,20,16
+FTRL (Follow-The-Regularized-Leader),1e-05,20,32
+FTRL (Follow-The-Regularized-Leader),1e-05,20,64
+FTRL (Follow-The-Regularized-Leader),1e-05,20,128
+FTRL (Follow-The-Regularized-Leader),1e-05,20,256
+FTRL (Follow-The-Regularized-Leader),1e-05,25,8
+FTRL (Follow-The-Regularized-Leader),1e-05,25,16
+FTRL (Follow-The-Regularized-Leader),1e-05,25,32
+FTRL (Follow-The-Regularized-Leader),1e-05,25,64
+FTRL (Follow-The-Regularized-Leader),1e-05,25,128
+FTRL (Follow-The-Regularized-Leader),1e-05,25,256
+FTRL (Follow-The-Regularized-Leader),1e-05,30,8
+FTRL (Follow-The-Regularized-Leader),1e-05,30,16
+FTRL (Follow-The-Regularized-Leader),1e-05,30,32
+FTRL (Follow-The-Regularized-Leader),1e-05,30,64
+FTRL (Follow-The-Regularized-Leader),1e-05,30,128
+FTRL (Follow-The-Regularized-Leader),1e-05,30,256
+FTRL (Follow-The-Regularized-Leader),1e-06,5,8
+FTRL (Follow-The-Regularized-Leader),1e-06,5,16
+FTRL (Follow-The-Regularized-Leader),1e-06,5,32
+FTRL (Follow-The-Regularized-Leader),1e-06,5,64
+FTRL (Follow-The-Regularized-Leader),1e-06,5,128
+FTRL (Follow-The-Regularized-Leader),1e-06,5,256
+FTRL (Follow-The-Regularized-Leader),1e-06,10,8
+FTRL (Follow-The-Regularized-Leader),1e-06,10,16
+FTRL (Follow-The-Regularized-Leader),1e-06,10,32
+FTRL (Follow-The-Regularized-Leader),1e-06,10,64
+FTRL (Follow-The-Regularized-Leader),1e-06,10,128
+FTRL (Follow-The-Regularized-Leader),1e-06,10,256
+FTRL (Follow-The-Regularized-Leader),1e-06,15,8
+FTRL (Follow-The-Regularized-Leader),1e-06,15,16
+FTRL (Follow-The-Regularized-Leader),1e-06,15,32
+FTRL (Follow-The-Regularized-Leader),1e-06,15,64
+FTRL (Follow-The-Regularized-Leader),1e-06,15,128
+FTRL (Follow-The-Regularized-Leader),1e-06,15,256
+FTRL (Follow-The-Regularized-Leader),1e-06,20,8
+FTRL (Follow-The-Regularized-Leader),1e-06,20,16
+FTRL (Follow-The-Regularized-Leader),1e-06,20,32
+FTRL (Follow-The-Regularized-Leader),1e-06,20,64
+FTRL (Follow-The-Regularized-Leader),1e-06,20,128
+FTRL (Follow-The-Regularized-Leader),1e-06,20,256
+FTRL (Follow-The-Regularized-Leader),1e-06,25,8
+FTRL (Follow-The-Regularized-Leader),1e-06,25,16
+FTRL (Follow-The-Regularized-Leader),1e-06,25,32
+FTRL (Follow-The-Regularized-Leader),1e-06,25,64
+FTRL (Follow-The-Regularized-Leader),1e-06,25,128
+FTRL (Follow-The-Regularized-Leader),1e-06,25,256
+FTRL (Follow-The-Regularized-Leader),1e-06,30,8
+FTRL (Follow-The-Regularized-Leader),1e-06,30,16
+FTRL (Follow-The-Regularized-Leader),1e-06,30,32
+FTRL (Follow-The-Regularized-Leader),1e-06,30,64
+FTRL (Follow-The-Regularized-Leader),1e-06,30,128
+FTRL (Follow-The-Regularized-Leader),1e-06,30,256

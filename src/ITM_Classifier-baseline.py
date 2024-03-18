@@ -93,6 +93,12 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader  # Make sure to import ImageReader
 from PIL import Image
 
+Accuracy = 0
+Loss = 0
+Validation_accuracy = 0
+Validation_loss = 0
+
+
 # Verify TensorFlow can detect the GPU
 gpus = tf.config.experimental.list_physical_devices('GPU')
 print(f"Num GPUs Available: {len(gpus)}")
@@ -359,6 +365,8 @@ class ITM_Classifier(ITM_DataLoader):
         self.classifier_model.summary()
 	
     def train_classifier_model(self):
+        global Accuracy, Loss
+        
         print(f'TRAINING model')
         steps_per_epoch = tf.data.experimental.cardinality(self.train_ds).numpy()
         num_train_steps = steps_per_epoch * self.epochs
@@ -377,9 +385,16 @@ class ITM_Classifier(ITM_DataLoader):
         #callbacks = [tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)]
 
         self.history = self.classifier_model.fit(x=self.train_ds, validation_data=self.val_ds, epochs=self.epochs)#, callbacks=callbacks)
+        
+        # Update global variables with final training metrics
+        Accuracy = self.history.history['binary_accuracy'][-1]
+        Loss = self.history.history['loss'][-1]
+        
         print("model trained!")
 
     def test_classifier_model(self):
+        global Validation_accuracy, Validation_loss
+        
         print("TESTING classifier model (showing a sample of image-text-matching predictions)...")
         num_classifications = 0
         num_correct_predictions = 0
@@ -432,6 +447,8 @@ class ITM_Classifier(ITM_DataLoader):
 
         # reveal test performance using Tensorflow calculations
         loss, accuracy = self.classifier_model.evaluate(self.test_ds)
+        Validation_loss = loss
+        Validation_accuracy = accuracy
         print(f'Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}')
 
 
@@ -465,6 +482,12 @@ def plot_training_history(history):
 # Let's create an instance of the main class
 
 itm = ITM_Classifier()
+
+# Print final values of global variables
+print("Final Accuracy:", Accuracy)
+print("Final Loss:", Loss)
+print("Final Validation Accuracy:", Validation_accuracy)
+print("Final Validation Loss:", Validation_loss)
 
 plot_training_history(itm.history)
 generate_pdf_from_csv("output/Test_sample.csv", "output/Test_sample.pdf")
