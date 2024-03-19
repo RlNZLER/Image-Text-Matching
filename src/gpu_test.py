@@ -15,3 +15,10 @@ for gpu in gpus:
 # Print out information about GPU usage by TensorFlow
 print("\nTensorFlow GPU Usage:")
 print(tf.config.experimental.list_logical_devices('GPU'))
+
+
+import torch
+import torchvision
+
+print("PyTorch version:", torch.__version__)
+print("Torchvision version:", torchvision.__version__)
