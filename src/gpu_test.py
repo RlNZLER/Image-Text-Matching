@@ -17,8 +17,8 @@ print("\nTensorFlow GPU Usage:")
 print(tf.config.experimental.list_logical_devices('GPU'))
 
 
-import torch
-import torchvision
+# import torch
+# import torchvision
 
-print("PyTorch version:", torch.__version__)
-print("Torchvision version:", torchvision.__version__)
+# print("PyTorch version:", torch.__version__)
+# print("Torchvision version:", torchvision.__version__)
