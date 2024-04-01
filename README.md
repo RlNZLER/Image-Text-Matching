@@ -141,3 +141,26 @@ Certainly! Hyperparameters are parameters whose values are set before the traini
     - Explore other regularization techniques such as L1 or L2 regularization to penalize large weights and prevent overfitting.
 
 Experimenting with these hyperparameters and monitoring the model's performance on validation data is essential for finding the optimal configuration for your image-text matching model.
+
+
+2. Machine Learning Classifiers
+a. Siamese Networks with Contrastive Loss:
+Description: Siamese Networks involve twin networks that accept distinct inputs but are joined by an energy function at the top that calculates a metric between the highest-level feature representation of each network. They are effective for learning similarity between two different modalities.
+Justification: They can be trained to minimize or maximize the contrastive loss based on whether the image-text pairs match, making them highly effective for this kind of task.
+b. Transformer-based Cross-modal Models (e.g., CLIP):
+Description: CLIP (Contrastive Language–Image Pre-training) by OpenAI is a model trained on a variety of (image, text) pairs. It learns to understand images in the context of textual descriptions, making it highly effective for image-text matching tasks.
+Justification: CLIP and similar models have been shown to generalize well across a variety of tasks without needing task-specific training data, which could be beneficial given the dataset constraints.
+c. Neural Network Ensembles:
+Description: Combining the outputs of multiple neural network models (such as different configurations of CNNs for images and RNNs or Transformers for text) to make a final prediction.
+Justification: Ensembles can reduce overfitting and improve the robustness of the predictions by leveraging the strengths of multiple models.
+3. Evaluation Metrics
+Balanced Classification Accuracy: Useful for datasets where the number of match and no-match cases may be imbalanced.
+Precision-Recall & F-measure: Since the task is binary classification, these metrics will help in understanding the trade-off between the precision of the positive predictions and their recall.
+AUC-ROC: The area under the receiver operating characteristic curve can also be a useful metric to evaluate the performance of binary classifiers in distinguishing between match and no-match cases.
+4. Implementation and Libraries
+Deep Learning Frameworks: Utilize TensorFlow, Keras, or PyTorch for implementing the neural network models. These libraries provide extensive support for building custom models, as well as accessing pre-trained models.
+Pre-trained Models: Libraries like Hugging Face's Transformers provide access to pre-trained NLP models which can be used for text embeddings. Similarly, models pre-trained on ImageNet are available within TensorFlow and PyTorch libraries for image feature extraction.
+5. Comparison and Critique
+Compare the performance of the classifiers based on the evaluation metrics.
+Analyze the trade-offs between complexity, computational requirements, and performance.
+Discuss any limitations and how they might be addressed in future work.
