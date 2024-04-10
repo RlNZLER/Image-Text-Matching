@@ -96,10 +96,11 @@ class ITM_DataLoader:
     IMAGE_SHAPE = (224, 224, 3)
     SENTENCE_EMBEDDING_SHAPE = 384
     AUTOTUNE = tf.data.AUTOTUNE
-    IMAGES_PATH = "/mnt/c/Users/Computing/Downloads/flickr8k.dataset-cmp9137-item1/flickr8k-resised"
-    train_data_file = IMAGES_PATH + "/../flickr8k.TrainImages.txt"
-    dev_data_file = IMAGES_PATH + "/../flickr8k.DevImages.txt"
-    test_data_file = IMAGES_PATH + "/../flickr8k.TestImages.txt"
+    DATA_PATH = "D:\_GITHUB_\Image-Text-Matching\data"
+    IMAGES_PATH = DATA_PATH + "/images"
+    train_data_file = DATA_PATH + "/flickr8k.TrainImages.txt"
+    dev_data_file = DATA_PATH + "/flickr8k.DevImages.txt"
+    test_data_file = DATA_PATH + "/flickr8k.TestImages.txt"
     sentence_embeddings_file = (
         IMAGES_PATH + "/../flickr8k.cmp9137.sentence_transformers.pkl"
     )
