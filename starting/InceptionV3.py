@@ -1,78 +1,3 @@
-#####################################################
-# Image-Text Matching Classifier: baseline system
-#
-# This program has been adapted and rewriten from sources such as:
-# https://www.tensorflow.org/tutorials/images/cnn
-# https://keras.io/api/layers/merging_layers/concatenate/
-# https://pypi.org/project/sentence-transformers/
-#
-# If you are new to Tensorflow, read the following brief tutorial:
-# https://www.tensorflow.org/tutorials/quickstart/beginner
-#
-# As you develop your experience and skills, you may want to check
-# details of particular aspects of the Tensorflow API:
-# https://www.tensorflow.org/api_docs/python/tf/all_symbols
-#
-# This is a binary classifier for image-text matching, where the inputs
-# are images and text-based features, and the outputs (denoted as
-# match=[1,0] and nomatch=[0,1]) correspond to (predicted) answers. This
-# baseline classifier makes use of two strands of features. The first
-# are produced by a CNN-classifier, and the second are derived offline
-# from a sentence embedding generator. The latter have the advantage of
-# being generated once, which can accelerate training due to being
-# pre-trained and loaded at runtime. Those two strands of features are
-# concatenated at trianing time to form a multimodal set of features,
-# combining learnt image features and pre-trained sentence features.
-
-# This program has been tested using an Anaconda environment with Python 3.9
-# and 3.10 on Windows 11 and Linux Ubuntu 22. The easiest way to run this
-# baseline at Uni is by booting your PC with Windows and using the following steps.
-#
-# Step 1=> Make sure that your downloaded data and baseline system are
-#          extracted in the Downloads folder.
-#          Note. Your path should start with /mnt/c/Users/Computing/Downloads
-#
-# Step 2=> Open a terminal and select Ubuntu from the little arrow pointing down
-#          Note. Your program will be executed under a Linux environment.
-#
-# Step 3=> Install the following dependencies:
-# pip install tf-models-official
-# pip install tensorflow-text
-# pip install einops
-#
-# Step 4=> Edit file ITM_Classifier-baseline.py and make sure that variable
-# IMAGES_PATH points to the right folder containing the data.
-#
-# Step 5=> Run the program using a command such as
-# $ python ITM_Classifier-baseline.py
-#
-#
-# The code above can also be run from Visual Studio Code, to access it using the
-# Linux envinment type "code ." in the Ubuntu terminal. From VSCode, click View, Terminal,
-# type your command (example: python ITM_Classifier-baseline.py) and Enter.
-#
-# Running this baseline takes about 5 minutes minutes with a GPU-enabled Uni PC.
-# WARNING: Running this code without a GPU is too slow and not recommended.
-#
-# In your own PC you can use Anaconda to run this code. From a conda terminal
-# for example. If you want GPU-enabled execution, it is recommended that you
-# install the following versions of software:
-# CUDA 11.8
-# CuDNN 8.6
-# Tensorflow 2.10
-#
-# Feel free to use and/or modify this program as part of your CMP9137 assignment.
-# You are invited to use the knowledge acquired during lectures, workshops
-# and beyond to propose and evaluate alternative solutions to this baseline.
-#
-# Version 1.0, main functionality tested with COCO data
-# Version 1.2, extended functionality for Flickr data
-# Contact: {hcuayahuitl, lzhang, friaz}@lincoln.ac.uk
-#####################################################
-
-
-# Let's import the dependencies
-
 import sys
 import os
 import time
@@ -83,6 +8,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
+from tensorflow.keras.applications import InceptionV3
 from official.nlp import optimization
 import matplotlib.pyplot as plt
 
@@ -101,9 +27,7 @@ class ITM_DataLoader:
     train_data_file = DATA_PATH + "/flickr8k.TrainImages.txt"
     dev_data_file = DATA_PATH + "/flickr8k.DevImages.txt"
     test_data_file = DATA_PATH + "/flickr8k.TestImages.txt"
-    sentence_embeddings_file = (
-        DATA_PATH + "/flickr8k.cmp9137.sentence_transformers.pkl"
-    )
+    sentence_embeddings_file = DATA_PATH + "/flickr8k.cmp9137.sentence_transformers.pkl"
     sentence_embeddings = {}
     train_ds = None
     val_ds = None
@@ -232,14 +156,24 @@ class ITM_Classifier(ITM_DataLoader):
         self, num_projection_layers, projection_dims, dropout_rate
     ):
         img_input = layers.Input(shape=self.IMAGE_SHAPE, name="image_input")
-        cnn_layer = layers.Conv2D(16, 3, padding="same", activation="relu")(img_input)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
-        cnn_layer = layers.Conv2D(32, 3, padding="same", activation="relu")(cnn_layer)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
-        cnn_layer = layers.Conv2D(64, 3, padding="same", activation="relu")(cnn_layer)
-        cnn_layer = layers.MaxPooling2D()(cnn_layer)
+
+        # Use InceptionV3 with ImageNet weights, excluding the top (fully connected) layer
+        base_model = InceptionV3(
+            include_top=False,
+            weights="imagenet",
+            input_tensor=img_input,
+            input_shape=self.IMAGE_SHAPE,
+        )
+        # Avoid training the base model to retain learned features
+        base_model.trainable = False
+
+        # Continue from where the base model leaves off
+        cnn_layer = base_model.output
+        cnn_layer = layers.GlobalAveragePooling2D()(
+            cnn_layer
+        )  # Added to reduce dimensions
         cnn_layer = layers.Dropout(dropout_rate)(cnn_layer)
-        cnn_layer = layers.Flatten()(cnn_layer)
+
         outputs = self.project_embeddings(
             cnn_layer, num_projection_layers, projection_dims, dropout_rate
         )
