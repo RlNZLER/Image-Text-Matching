@@ -1,20 +1,16 @@
-import sys
 import os
-import time
-import einops
 import pickle
 import random
-import numpy as np
 import tensorflow as tf
-from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.applications import InceptionV3
 from transformers import BertTokenizer, TFBertModel
 from official.nlp import optimization
 import matplotlib.pyplot as plt
 
-
 # Class for loading image and text data
+
+
 class ITM_DataLoader:
     BATCH_SIZE = 16
     IMAGE_SIZE = (224, 224)
@@ -23,42 +19,21 @@ class ITM_DataLoader:
     SENTENCE_EMBEDDING_SHAPE = 384
     AUTOTUNE = tf.data.AUTOTUNE
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    DATA_PATH = "D:\_GITHUB_\Image-Text-Matching\data"
+    DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/data"
     IMAGES_PATH = DATA_PATH + "/images"
     train_data_file = DATA_PATH + "/flickr8k.TrainImages.txt"
     dev_data_file = DATA_PATH + "/flickr8k.DevImages.txt"
     test_data_file = DATA_PATH + "/flickr8k.TestImages.txt"
-    sentence_embeddings_file = DATA_PATH + "/flickr8k.cmp9137.sentence_transformers.pkl"
-    sentence_embeddings = {}
     train_ds = None
     val_ds = None
     test_ds = None
 
     def __init__(self):
-        self.sentence_embeddings = self.load_sentence_embeddings()
         self.train_ds = self.load_classifier_data(self.train_data_file)
         self.val_ds = self.load_classifier_data(self.dev_data_file)
         self.test_ds = self.load_classifier_data(self.test_data_file)
         print("done loading data...")
 
-    # Sentence embeddings are dense vectors representing text data, one vector per sentence.
-    # Sentences with similar vectors would mean sentences with equivalent meanning.
-    # They are useful here to provide text-based features of questions in the data.
-    # Note: sentence embeddings don't include label info, they are solely based on captions.
-    def load_sentence_embeddings(self):
-        sentence_embeddings = {}
-        print("READING sentence embeddings...")
-        with open(self.sentence_embeddings_file, "rb") as f:
-            data = pickle.load(f)
-            for sentence, dense_vector in data.items():
-                # print("*sentence=",sentence)
-                sentence_embeddings[sentence] = dense_vector
-        print("Done reading sentence_embeddings!")
-        return sentence_embeddings
-
-    # In contrast to text-data based on pre-trained features, image data does not use
-    # any form of pre-training in this program. Instead, it makes use of raw pixels.
-    # Notes that input features to the classifier are only pixels and sentence embeddings.
     def process_input(
         self, img_path, text_input_ids, text_attention_mask, label, caption
     ):
@@ -76,12 +51,6 @@ class ITM_DataLoader:
         }
         return features, label
 
-    # This method loads the multimodal data, which comes from the following sources:
-    # (1) image files in IMAGES_PATH, and (2) files with pattern flickr8k.*Images.txt
-    # The data is stored in a tensorflow data structure to make it easy to use by
-    # the tensorflow model during training, validation and test. This method was
-    # carefully prepared to load the data rapidly, i.e., by loading already created
-    # sentence embeddings (text features) rather than creating them at runtime.
     def load_classifier_data(self, data_files):
         print("LOADING data from " + str(data_files))
         image_data = []
@@ -141,14 +110,16 @@ class ITM_DataLoader:
 
 
 # Main class for the Image-Text Matching (ITM) task
+
+
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 15
+    epochs = 1
     learning_rate = 4e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
     classifier_model = None
     history = None
-    classifier_model_name = "ITM_Classifier-flickr"
+    classifier_model_name = "ITM_InceptionV3_BERT"
 
     def __init__(self):
         super().__init__()
@@ -279,6 +250,19 @@ class ITM_Classifier(ITM_DataLoader):
         )
         self.classifier_model.summary()
 
+    def save_model(self):
+        model_dir = "models"
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)  # Ensure directory exists
+        model_path = os.path.join(model_dir, self.classifier_model_name)
+        history_path = os.path.join(
+            model_dir, f"{self.classifier_model_name}_history.pkl"
+        )
+        print("SAVING model to", model_path)
+        self.classifier_model.save(model_path)  # Save the model
+        with open(history_path, "wb") as f:
+            pickle.dump(self.history.history, f)  # Save the training history
+
     def train_classifier_model(self):
         print(f"TRAINING model")
         steps_per_epoch = tf.data.experimental.cardinality(self.train_ds).numpy()
@@ -297,11 +281,18 @@ class ITM_Classifier(ITM_DataLoader):
         self.classifier_model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
         # uncomment the next line if you wish to make use of early stopping during training
-        # callbacks = [tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)]
+        callbacks = [
+            tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)
+        ]
 
         self.history = self.classifier_model.fit(
-            x=self.train_ds, validation_data=self.val_ds, epochs=self.epochs
-        )  # , callbacks=callbacks)
+            x=self.train_ds,
+            validation_data=self.val_ds,
+            epochs=self.epochs,
+            callbacks=callbacks,
+        )
+        self.save_model()
+
         print("model trained!")
 
     def test_classifier_model(self):
@@ -349,6 +340,34 @@ class ITM_Classifier(ITM_DataLoader):
         print(f"Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}")
 
 
+def plot_training_history(itm):
+    history_path = os.path.join("models", f"{itm.classifier_model_name}_history.pkl")
+    with open(history_path, "rb") as f:
+        history = pickle.load(f)
+
+    # Plot training & validation accuracy
+    plt.figure(figsize=(10, 5))
+    plt.subplot(1, 2, 1)
+    plt.plot(history["binary_accuracy"], label="Train Accuracy")
+    plt.plot(history["val_binary_accuracy"], label="Validation Accuracy")
+    plt.title("Training and Validation Accuracy")
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend()
+
+    # Plot training & validation loss
+    plt.subplot(1, 2, 2)
+    plt.plot(history["loss"], label="Train Loss")
+    plt.plot(history["val_loss"], label="Validation Loss")
+    plt.title("Training and Validation Loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
+
+
 # Let's create an instance of the main class
 gpus = tf.config.experimental.list_physical_devices("GPU")
 if gpus:
@@ -363,3 +382,5 @@ if gpus:
         print(e)
 
 itm = ITM_Classifier()
+
+plot_training_history(itm)
