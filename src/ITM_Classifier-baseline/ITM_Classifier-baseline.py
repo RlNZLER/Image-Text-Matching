@@ -219,17 +219,8 @@ class ITM_Classifier(ITM_DataLoader):
     history = None
     classifier_model_name = "ITM_Classifier-flickr"
 
-    def __init__(
-        self,
-        num_projection_layers=1,
-        projection_dims=128,
-        dropout_rate=0.1,
-        learning_rate=3e-5,
-    ):
-        self.num_projection_layers = num_projection_layers
-        self.projection_dims = projection_dims
-        self.dropout_rate = dropout_rate
-        self.learning_rate = learning_rate
+    def __init__(self):
+        super().__init__()
         self.build_classifier_model()
         self.train_classifier_model()
         self.test_classifier_model()
@@ -279,17 +270,13 @@ class ITM_Classifier(ITM_DataLoader):
     def build_classifier_model(self):
         print(f"BUILDING model")
         img_input, vision_net = self.create_vision_encoder(
-            num_projection_layers=self.num_projection_layers,
-            projection_dims=self.projection_dims,
-            dropout_rate=self.dropout_rate,
+            num_projection_layers=1, projection_dims=128, dropout_rate=0.1
         )
         text_input, text_net = self.create_text_encoder(
-            num_projection_layers=self.num_projection_layers,
-            projection_dims=self.projection_dims,
-            dropout_rate=self.dropout_rate,
+            num_projection_layers=1, projection_dims=128, dropout_rate=0.1
         )
         net = tf.keras.layers.Concatenate(axis=1)([vision_net, text_net])
-        net = tf.keras.layers.Dropout(self.dropout_rate)(net)
+        net = tf.keras.layers.Dropout(0.1)(net)
         net = tf.keras.layers.Dense(
             self.num_classes, activation="softmax", name=self.classifier_model_name
         )(net)
@@ -366,47 +353,6 @@ class ITM_Classifier(ITM_DataLoader):
         # reveal test performance using Tensorflow calculations
         loss, accuracy = self.classifier_model.evaluate(self.test_ds)
         print(f"Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}")
-
-    def test_model_for_tuning(self):
-        print("TESTING classifier model for tuning...")
-        total_samples = 0
-        total_correct_predictions = 0
-
-        # Iterate over the test dataset
-        for features, groundtruth in self.test_ds:
-            predictions = self.classifier_model.predict(
-                features
-            )  # Get model predictions
-            predicted_classes = tf.argmax(predictions, axis=1)
-            actual_classes = tf.argmax(groundtruth, axis=1)
-
-            # Calculate correct predictions
-            correct_predictions = tf.reduce_sum(
-                tf.cast(predicted_classes == actual_classes, tf.float32)
-            )
-            total_correct_predictions += correct_predictions.numpy()
-            total_samples += groundtruth.shape[0]
-
-            # Optionally print some predictions
-            if (
-                random.random() < 0.1
-            ):  # Roughly 10% chance to print a batch's sample prediction
-                sample_index = random.randint(0, groundtruth.shape[0] - 1)
-                caption = features["caption"][sample_index].numpy().decode("utf-8")
-                match_probability = predictions[sample_index][0]
-                print(
-                    f"Sample Caption: '{caption}', Match Probability: {match_probability:.4f}"
-                )
-
-        # Calculate and print the overall accuracy
-        accuracy = total_correct_predictions / total_samples
-        print(f"Overall Accuracy: {accuracy:.4f}")
-
-        # Evaluate using TensorFlow's built-in metrics
-        loss, tf_accuracy = self.classifier_model.evaluate(self.test_ds)
-        print(f"TensorFlow Evaluate Loss: {loss:.4f}, Accuracy: {tf_accuracy:.4f}")
-
-        return tf_accuracy
 
 
 # Let's create an instance of the main class
