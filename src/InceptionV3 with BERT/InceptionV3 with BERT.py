@@ -15,8 +15,6 @@ import matplotlib.pyplot as plt
 
 
 # Class for loading image and text data
-
-
 class ITM_DataLoader:
     BATCH_SIZE = 16
     IMAGE_SIZE = (224, 224)
@@ -61,16 +59,22 @@ class ITM_DataLoader:
     # In contrast to text-data based on pre-trained features, image data does not use
     # any form of pre-training in this program. Instead, it makes use of raw pixels.
     # Notes that input features to the classifier are only pixels and sentence embeddings.
-    def process_input(self, img_path, text_input_ids, text_attention_mask, label):
+    def process_input(
+        self, img_path, text_input_ids, text_attention_mask, label, caption
+    ):
         img = tf.io.read_file(img_path)
         img = tf.image.decode_jpeg(img, channels=3)
         img = tf.image.resize(img, self.IMAGE_SIZE)
         img = tf.image.convert_image_dtype(img, tf.float32) / 255.0
-        return {
+        file_name = tf.strings.split(img_path, os.path.sep)[-1]
+        features = {
             "image_input": img,
             "text_input_ids": text_input_ids,
             "text_attention_mask": text_attention_mask,
-        }, label
+            "caption": caption,
+            "file_name": file_name,
+        }
+        return features, label
 
     # This method loads the multimodal data, which comes from the following sources:
     # (1) image files in IMAGES_PATH, and (2) files with pattern flickr8k.*Images.txt
@@ -84,6 +88,7 @@ class ITM_DataLoader:
         text_input_ids = []
         text_attention_masks = []
         label_data = []
+        captions = []
 
         with open(data_files) as f:
             lines = f.readlines()
@@ -110,9 +115,10 @@ class ITM_DataLoader:
                     encoding["attention_mask"][0]
                 )  # [0] to unpack from batch
                 label_data.append(label)
+                captions.append(text)
 
         dataset = tf.data.Dataset.from_tensor_slices(
-            (image_data, text_input_ids, text_attention_masks, label_data)
+            (image_data, text_input_ids, text_attention_masks, label_data, captions)
         )
         dataset = dataset.map(self.process_input, num_parallel_calls=self.AUTOTUNE)
         dataset = (
@@ -128,7 +134,6 @@ class ITM_DataLoader:
         for features_batch, label_batch in dataset.take(1):
             for i in range(1):
                 print(f'Image pixels: {features_batch["image_input"]}')
-                print(f'Sentence embeddings: {features_batch["text_embedding"]}')
                 print(f'Caption: {features_batch["caption"].numpy()}')
                 label = label_batch.numpy()[i]
                 print(f"Label : {label}")
@@ -136,8 +141,6 @@ class ITM_DataLoader:
 
 
 # Main class for the Image-Text Matching (ITM) task
-
-
 class ITM_Classifier(ITM_DataLoader):
     epochs = 15
     learning_rate = 4e-5
