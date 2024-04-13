@@ -164,3 +164,19 @@ Pre-trained Models: Libraries like Hugging Face's Transformers provide access to
 Compare the performance of the classifiers based on the evaluation metrics.
 Analyze the trade-offs between complexity, computational requirements, and performance.
 Discuss any limitations and how they might be addressed in future work.
+
+For tensorflow 2.10.0 installation
+Step 1: Install anaconda
+Step 2:
+```
+conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+```
+#### Anything above 2.10 is not supported on the GPU on Windows Native
+```
+python -m pip install "tensorflow<2.11"
+```
+#### Verify the installation:
+```
+python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+```
+
