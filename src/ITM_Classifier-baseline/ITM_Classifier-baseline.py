@@ -73,16 +73,16 @@
 
 # Let's import the dependencies
 
-import sys
 import os
-import time
-import einops
+import csv
 import pickle
 import random
+import datetime
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
+from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
 from official.nlp import optimization
 import matplotlib.pyplot as plt
 
@@ -217,7 +217,8 @@ class ITM_Classifier(ITM_DataLoader):
     num_classes = len(class_names)
     classifier_model = None
     history = None
-    classifier_model_name = "ITM_Classifier-flickr"
+    classifier_model_name = "ITM_Classifier-baseline"
+    training_time = None
 
     def __init__(self):
         super().__init__()
@@ -277,18 +278,40 @@ class ITM_Classifier(ITM_DataLoader):
         )
         net = tf.keras.layers.Concatenate(axis=1)([vision_net, text_net])
         net = tf.keras.layers.Dropout(0.1)(net)
-        net = tf.keras.layers.Dense(self.num_classes, activation="softmax", name=self.classifier_model_name)(net)
-        self.classifier_model = tf.keras.Model(inputs=[img_input, text_input], outputs=net)
+        net = tf.keras.layers.Dense(
+            self.num_classes, activation="softmax", name=self.classifier_model_name
+        )(net)
+        self.classifier_model = tf.keras.Model(
+            inputs=[img_input, text_input], outputs=net
+        )
         self.classifier_model.summary()
+
+    def save_model(self):
+        model_dir = "models"
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir)  # Ensure directory exists
+        model_path = os.path.join(model_dir, self.classifier_model_name)
+        history_path = os.path.join(
+            model_dir, f"{self.classifier_model_name}_history.pkl"
+        )
+        print("SAVING model history to", model_path)
+        # self.classifier_model.save(model_path)  # Save the model
+        with open(history_path, "wb") as f:
+            pickle.dump(self.history.history, f)  # Save the training history
 
     def train_classifier_model(self):
         print(f"TRAINING model")
+        start_time = datetime.datetime.now()
         steps_per_epoch = tf.data.experimental.cardinality(self.train_ds).numpy()
         num_train_steps = steps_per_epoch * self.epochs
         num_warmup_steps = int(0.2 * num_train_steps)
 
         loss = tf.keras.losses.KLDivergence()
-        metrics = tf.keras.metrics.BinaryAccuracy()
+        metrics = [
+            BinaryAccuracy(name="binary_accuracy"),
+            Precision(name="precision"),
+            Recall(name="recall"),
+        ]
         optimizer = optimization.create_optimizer(
             init_lr=self.learning_rate,
             num_train_steps=num_train_steps,
@@ -299,12 +322,21 @@ class ITM_Classifier(ITM_DataLoader):
         self.classifier_model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
         # uncomment the next line if you wish to make use of early stopping during training
-        # callbacks = [tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)]
+        callbacks = [
+            tf.keras.callbacks.EarlyStopping(patience=11, restore_best_weights=True)
+        ]
 
         self.history = self.classifier_model.fit(
-            x=self.train_ds, validation_data=self.val_ds, epochs=self.epochs
-        )  # , callbacks=callbacks)
-        print("model trained!")
+            x=self.train_ds,
+            validation_data=self.val_ds,
+            epochs=self.epochs,
+            callbacks=callbacks,
+        )
+        self.save_model()
+        end_time = datetime.datetime.now()
+        self.training_time = end_time - start_time
+        print("MODEL TRAINED!")
+        print(f"Training completed in {self.training_time}")
 
     def test_classifier_model(self):
         print(
@@ -347,10 +379,165 @@ class ITM_Classifier(ITM_DataLoader):
         print("TEST accuracy=%4f" % (accuracy))
 
         # reveal test performance using Tensorflow calculations
-        loss, accuracy = self.classifier_model.evaluate(self.test_ds)
-        print(f"Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}")
+        loss, accuracy, precision, recall = self.classifier_model.evaluate(self.test_ds)
+        print(
+            f"Tensorflow test method: LOSS: {loss}; ACCURACY: {accuracy}: PRECISION: {precision}; RECALL: {recall}"
+        )
 
 
-# Let's create an instance of the main class
+# Calculate F1 scores from precision and recall values.
+def calculate_f1_score(precision, recall):
+    if (precision + recall) == 0:
+        return 0
+    return 2 * (precision * recall) / (precision + recall)
 
+
+# Log final metrics to a CSV file for tracking and comparison.
+def log_metrics(itm):
+    # Define the CSV file path
+    csv_file = os.path.join("logs", "itm_final_metrics_log.csv")
+    os.makedirs(os.path.dirname(csv_file), exist_ok=True)
+
+    # Prepare the header for the CSV
+    fieldnames = [
+        "Timestamp",
+        "Model Name",
+        "Learning Rate",
+        "Epoch",
+        "Train Loss",
+        "Train Accuracy",
+        "Validation Loss",
+        "Validation Accuracy",
+        "Test Loss",
+        "Test Accuracy",
+        "Test Precision",
+        "Test Recall",
+        "Test F1 Score",
+        "Training Time",
+    ]
+
+    # Open the CSV file for writing
+    with open(csv_file, mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+
+        # Collect the last epoch training and validation metrics
+        history = itm.history.history
+        final_epoch = len(history["loss"]) - 1
+        train_loss = history["loss"][final_epoch]
+        train_accuracy = history["binary_accuracy"][final_epoch]
+        val_loss = history["val_loss"][final_epoch]
+        val_accuracy = history["val_binary_accuracy"][final_epoch]
+
+        # Evaluate the model on the test dataset and get test metrics
+        test_results = itm.classifier_model.evaluate(itm.test_ds)
+        test_loss = test_results[0]
+        test_accuracy = test_results[1]
+        test_precision = test_results[2]
+        test_recall = test_results[3]
+        test_f1_score = calculate_f1_score(test_precision, test_recall)
+
+        # Write metrics to the CSV
+        writer.writerow(
+            {
+                "Timestamp": datetime.datetime.now().isoformat(),
+                "Model Name": itm.classifier_model_name,
+                "Learning Rate": itm.learning_rate,
+                "Epoch": itm.epochs,
+                "Train Loss": train_loss,
+                "Train Accuracy": train_accuracy,
+                "Validation Loss": val_loss,
+                "Validation Accuracy": val_accuracy,
+                "Test Loss": test_loss,
+                "Test Accuracy": test_accuracy,
+                "Test Precision": test_precision,
+                "Test Recall": test_recall,
+                "Test F1 Score": test_f1_score,
+                "Training Time": itm.training_time.total_seconds(),  # Convert to seconds
+            }
+        )
+
+
+# Plot training history metrics for accuracy, loss, precision, recall, and F1 score.
+def plot_training_history(itm):
+    # Extract metrics from history
+    history_data = itm.history.history
+    acc = history_data.get("binary_accuracy", [])
+    val_acc = history_data.get("val_binary_accuracy", [])
+    loss = history_data.get("loss", [])
+    val_loss = history_data.get("val_loss", [])
+    precision = history_data.get("precision", [])
+    val_precision = history_data.get("val_precision", [])
+    recall = history_data.get("recall", [])
+    val_recall = history_data.get("val_recall", [])
+
+    # Calculate F1 Scores for each epoch
+    f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(precision, recall)]
+    val_f1 = [
+        calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)
+    ]
+
+    plt.figure(figsize=(12, 8))
+
+    # Subplot for Accuracy
+    plt.subplot(2, 2, 1)
+    plt.plot(acc, label="Train Accuracy")
+    plt.plot(val_acc, label="Validation Accuracy")
+    plt.title("Accuracy")
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.legend()
+
+    # Subplot for Loss
+    plt.subplot(2, 2, 2)
+    plt.plot(loss, label="Train Loss")
+    plt.plot(val_loss, label="Validation Loss")
+    plt.title("Loss")
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.legend()
+
+    # Subplot for Precision and Recall
+    plt.subplot(2, 2, 3)
+    plt.plot(precision, label="Train Precision")
+    plt.plot(val_precision, label="Validation Precision")
+    plt.plot(recall, label="Train Recall")
+    plt.plot(val_recall, label="Validation Recall")
+    plt.title("Precision and Recall")
+    plt.xlabel("Epochs")
+    plt.ylabel("Values")
+    plt.legend()
+
+    # Subplot for F1 Score
+    plt.subplot(2, 2, 4)
+    plt.plot(f1, label="Train F1 Score")
+    plt.plot(val_f1, label="Validation F1 Score")
+    plt.title("F1 Score")
+    plt.xlabel("Epochs")
+    plt.ylabel("F1 Score")
+    plt.legend()
+
+    plt.tight_layout()
+    plt.savefig(
+        f"{itm.classifier_model_name}_training_history_plots.png"
+    )  # Save the figure
+    plt.show()
+
+
+# Set up GPU memory growth to avoid memory allocation issues.
+gpus = tf.config.experimental.list_physical_devices("GPU")
+if gpus:
+    try:
+        # Currently, memory growth needs to be the same across GPUs
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        logical_gpus = tf.config.experimental.list_logical_devices("GPU")
+        print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+    except RuntimeError as e:
+        # Memory growth must be set before GPUs have been initialized
+        print(e)
+
+# Initialize the ITM classifier and plot the training history.
 itm = ITM_Classifier()
+log_metrics(itm)
+plot_training_history(itm)
