@@ -1,12 +1,32 @@
+"""
+This Python module implements a multimodal Image-Text Matching (ITM) system using deep learning frameworks provided by TensorFlow and the Hugging Face Transformers library. The module is structured into several classes and functions that facilitate the end-to-end process of training and evaluating a classifier model that can determine if given pairs of images and text descriptions match or not.
+
+Key components:
+- ITM_DataLoader: Responsible for loading and preprocessing image and text data. It uses BERT (from Hugging Face Transformers) for text tokenization and processes images using TensorFlow operations.
+- ITM_Classifier: Inherits from ITM_DataLoader and implements the core functionality to build, train, and test a neural network model that integrates features extracted from both images (using InceptionV3) and text (using BERT). The classifier predicts whether the image and text are a match or not.
+- Auxiliary Functions: Includes functions for plotting training history and calculating F1 scores, enhancing the interpretability of the model's performance over epochs.
+
+The module also manages GPU resources to accommodate TensorFlow's requirements for computational efficiency and handles the initialization of the classifier model along with the visualization of the training process.
+
+Dependencies:
+- TensorFlow and TensorFlow Hub for model building and training.
+- Hugging Face's Transformers for efficient text processing.
+- Matplotlib for plotting training and validation metrics.
+"""
+
+# Let's import the dependencies
+
 import os
 import pickle
 import random
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
 from transformers import BertTokenizer, TFBertModel
 from official.nlp import optimization
 import matplotlib.pyplot as plt
+
 
 # Class for loading image and text data
 
@@ -32,7 +52,7 @@ class ITM_DataLoader:
         self.train_ds = self.load_classifier_data(self.train_data_file)
         self.val_ds = self.load_classifier_data(self.dev_data_file)
         self.test_ds = self.load_classifier_data(self.test_data_file)
-        print("done loading data...")
+        print("DONE LOADING DATA...")
 
     def process_input(
         self, img_path, text_input_ids, text_attention_mask, label, caption
@@ -67,22 +87,19 @@ class ITM_DataLoader:
                 img_name = os.path.join(self.IMAGES_PATH, img_name.strip())
                 label = [1, 0] if raw_label == "match" else [0, 1]
 
+                # Tokenize text using BERT tokenizer
                 encoding = self.tokenizer.encode_plus(
                     text,
                     add_special_tokens=True,
-                    max_length=self.SENTENCE_EMBEDDING_SHAPE,  # Ensure this attribute is defined
+                    max_length=self.SENTENCE_EMBEDDING_SHAPE,
                     padding="max_length",
                     truncation=True,
                     return_tensors="tf",
                 )
 
                 image_data.append(img_name)
-                text_input_ids.append(
-                    encoding["input_ids"][0]
-                )  # [0] to unpack from batch
-                text_attention_masks.append(
-                    encoding["attention_mask"][0]
-                )  # [0] to unpack from batch
+                text_input_ids.append(encoding["input_ids"][0])
+                text_attention_masks.append(encoding["attention_mask"][0])
                 label_data.append(label)
                 captions.append(text)
 
@@ -95,6 +112,7 @@ class ITM_DataLoader:
             .batch(self.BATCH_SIZE)
             .prefetch(self.AUTOTUNE)
         )
+        self.print_data_samples(dataset)
         return dataset
 
     def print_data_samples(self, dataset):
@@ -113,7 +131,7 @@ class ITM_DataLoader:
 
 
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 1
+    epochs = 2
     learning_rate = 4e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
@@ -127,35 +145,36 @@ class ITM_Classifier(ITM_DataLoader):
         self.train_classifier_model()
         self.test_classifier_model()
 
-    # return learnt feature representations of input data (images)
+    # Create vision encoder to extract features from images using InceptionV3 as the backbone.
     def create_vision_encoder(
         self, num_projection_layers, projection_dims, dropout_rate
     ):
         img_input = layers.Input(shape=self.IMAGE_SHAPE, name="image_input")
 
-        # Use InceptionV3 with ImageNet weights, excluding the top (fully connected) layer
+        # Use InceptionV3 with pretrained ImageNet weights, excluding the top layer.
         base_model = InceptionV3(
             include_top=False,
             weights="imagenet",
             input_tensor=img_input,
             input_shape=self.IMAGE_SHAPE,
         )
-        # Avoid training the base model to retain learned features
-        base_model.trainable = False
 
-        # Continue from where the base model leaves off
+        base_model.trainable = False  # Freeze the convolutional base to prevent weights from updating during training.
+
+        # Add global average pooling and dropout layers to reduce dimensionality and prevent overfitting.
         cnn_layer = base_model.output
         cnn_layer = layers.GlobalAveragePooling2D()(
             cnn_layer
         )  # Added to reduce dimensions
         cnn_layer = layers.Dropout(dropout_rate)(cnn_layer)
 
+        # Project the embeddings to a lower dimensional space using dense layers.
         outputs = self.project_embeddings(
             cnn_layer, num_projection_layers, projection_dims, dropout_rate
         )
         return img_input, outputs
 
-    # return learnt feature representations based on dense layers, dropout, and layer normalisation
+    # Project embeddings through multiple layers to enhance representation.
     def project_embeddings(
         self, embeddings, num_projection_layers, projection_dims, dropout_rate
     ):
@@ -168,16 +187,16 @@ class ITM_Classifier(ITM_DataLoader):
             projected_embeddings = layers.LayerNormalization()(x)
         return projected_embeddings
 
-    # return learnt feature representations of input data (text embeddings in the form of dense vectors)
+    # Create text encoder using BERT to extract features from text.
     def create_text_encoder(
         self, num_projection_layers=1, projection_dims=128, dropout_rate=0.1
     ):
         bert_model = TFBertModel.from_pretrained("bert-base-uncased")
         bert_model.trainable = (
-            False  # Set to False to freeze BERT weights, or True to fine-tune
+            False  # Set to False to freeze BERT weights, or True to fine-tune.
         )
 
-        # Define the inputs for the BERT model
+        # Define inputs and process them through BERT.
         text_input_ids = tf.keras.Input(
             shape=(self.SENTENCE_EMBEDDING_SHAPE,),
             dtype=tf.int32,
@@ -189,32 +208,27 @@ class ITM_Classifier(ITM_DataLoader):
             name="text_attention_mask",
         )
 
-        # Getting the output from BERT
         bert_output = bert_model(text_input_ids, attention_mask=text_attention_mask)
         text_features = bert_output.last_hidden_state
         text_features = tf.keras.layers.GlobalAveragePooling1D()(text_features)
 
-        # Project the BERT outputs to the desired dimensionality
+        # Project the text features to match the dimensions of the vision features.
         projected_embeddings = tf.keras.layers.Dense(
             projection_dims, activation="relu"
         )(text_features)
-        for _ in range(
-            1, num_projection_layers
-        ):  # start from 1 because we already added one Dense layer
+        for _ in range(1, num_projection_layers):
             x = tf.keras.layers.Dense(projection_dims, activation="relu")(
                 projected_embeddings
             )
             x = tf.keras.layers.Dropout(dropout_rate)(x)
-            projected_embeddings = tf.keras.layers.Add()(
-                [projected_embeddings, x]
-            )  # Element-wise addition
+            projected_embeddings = tf.keras.layers.Add()([projected_embeddings, x])
             projected_embeddings = tf.keras.layers.LayerNormalization()(
                 projected_embeddings
             )
 
         return text_input_ids, text_attention_mask, projected_embeddings
 
-    # put together the feature representations above to create the image-text (multimodal) deep learning model
+    # Combine vision and text features into a multimodal model.
     def build_classifier_model(self):
         print("BUILDING model")
         # Create the vision model part
@@ -227,7 +241,7 @@ class ITM_Classifier(ITM_DataLoader):
             num_projection_layers=1, projection_dims=128, dropout_rate=0.1
         )
 
-        # Combine the outputs from both text and vision parts
+        # Concatenate vision and text features and add dense layers for classification.
         combined_features = tf.keras.layers.Concatenate(axis=1)([vision_net, text_net])
         combined_features = tf.keras.layers.Dense(512, activation="relu")(
             combined_features
@@ -238,15 +252,14 @@ class ITM_Classifier(ITM_DataLoader):
         )
         combined_features = tf.keras.layers.LayerNormalization()(combined_features)
 
-        # Classifier layer
+        # Final classifier layer to predict match/no-match.
         final_output = tf.keras.layers.Dense(
             self.num_classes, activation="softmax", name=self.classifier_model_name
         )(combined_features)
-
-        # Create the full model
         self.classifier_model = tf.keras.Model(
             inputs=[img_input, text_input_ids, text_attention_mask],
             outputs=final_output,
+            name=self.classifier_model_name,
         )
         self.classifier_model.summary()
 
@@ -258,8 +271,8 @@ class ITM_Classifier(ITM_DataLoader):
         history_path = os.path.join(
             model_dir, f"{self.classifier_model_name}_history.pkl"
         )
-        print("SAVING model to", model_path)
-        self.classifier_model.save(model_path)  # Save the model
+        print("SAVING model history to", model_path)
+        # self.classifier_model.save(model_path)  # Save the model
         with open(history_path, "wb") as f:
             pickle.dump(self.history.history, f)  # Save the training history
 
@@ -269,8 +282,13 @@ class ITM_Classifier(ITM_DataLoader):
         num_train_steps = steps_per_epoch * self.epochs
         num_warmup_steps = int(0.2 * num_train_steps)
 
+        # Set up loss function, metrics, and optimizer for training.
         loss = tf.keras.losses.KLDivergence()
-        metrics = tf.keras.metrics.BinaryAccuracy()
+        metrics = [
+            BinaryAccuracy(name="binary_accuracy"),
+            Precision(name="precision"),
+            Recall(name="recall"),
+        ]
         optimizer = optimization.create_optimizer(
             init_lr=self.learning_rate,
             num_train_steps=num_train_steps,
@@ -295,6 +313,7 @@ class ITM_Classifier(ITM_DataLoader):
 
         print("model trained!")
 
+    # Evaluate the classifier model on the test dataset and print accuracy metrics.
     def test_classifier_model(self):
         print(
             "TESTING classifier model (showing a sample of image-text-matching predictions)..."
@@ -302,7 +321,7 @@ class ITM_Classifier(ITM_DataLoader):
         num_classifications = 0
         num_correct_predictions = 0
 
-        # read test data for ITM classification
+        # Iterate through the test dataset to calculate accuracy.
         for features, groundtruth in self.test_ds:
             groundtruth = groundtruth.numpy()
             predictions = self.classifier_model(features)
@@ -310,7 +329,7 @@ class ITM_Classifier(ITM_DataLoader):
             captions = features["caption"].numpy()
             file_names = features["file_name"].numpy()
 
-            # read test data per batch
+            # Output sample predictions and calculate model performance.
             for batch_index in range(0, len(groundtruth)):
                 predicted_values = predictions[batch_index]
                 probability_match = predicted_values[0]
@@ -336,39 +355,88 @@ class ITM_Classifier(ITM_DataLoader):
         print("TEST accuracy=%4f" % (accuracy))
 
         # reveal test performance using Tensorflow calculations
-        loss, accuracy = self.classifier_model.evaluate(self.test_ds)
-        print(f"Tensorflow test method: Loss: {loss}; ACCURACY: {accuracy}")
+        loss, accuracy, precision, recall = self.classifier_model.evaluate(self.test_ds)
+        print(
+            f"Tensorflow test method: LOSS: {loss}; ACCURACY: {accuracy}: PRECISION: {precision}; RECALL: {recall}"
+        )
 
 
-def plot_training_history(itm):
-    history_path = os.path.join("models", f"{itm.classifier_model_name}_history.pkl")
-    with open(history_path, "rb") as f:
-        history = pickle.load(f)
+# Calculate F1 scores from precision and recall values.
+def calculate_f1_scores(precision_vals, recall_vals):
+    f1_scores = []
+    for p, r in zip(precision_vals, recall_vals):
+        if p + r == 0:  # Avoid division by zero
+            f1_scores.append(0)
+        else:
+            f1_score = (
+                2 * (p * r) / (p + r + tf.keras.backend.epsilon())
+            )  # Ensure numerical stability
+            f1_scores.append(f1_score)
+    return f1_scores
 
-    # Plot training & validation accuracy
-    plt.figure(figsize=(10, 5))
-    plt.subplot(1, 2, 1)
-    plt.plot(history["binary_accuracy"], label="Train Accuracy")
-    plt.plot(history["val_binary_accuracy"], label="Validation Accuracy")
-    plt.title("Training and Validation Accuracy")
+
+# Plot training history metrics for accuracy, loss, precision, recall, and F1 score.
+def plot_training_history(history_data):
+    # Extract metrics from history
+    acc = history_data.get("binary_accuracy", [])
+    val_acc = history_data.get("val_binary_accuracy", [])
+    loss = history_data.get("loss", [])
+    val_loss = history_data.get("val_loss", [])
+    precision = history_data.get("precision", [])
+    val_precision = history_data.get("val_precision", [])
+    recall = history_data.get("recall", [])
+    val_recall = history_data.get("val_recall", [])
+
+    # Calculate F1 Scores
+    f1 = calculate_f1_scores(precision, recall)
+    val_f1 = calculate_f1_scores(val_precision, val_recall)
+
+    plt.figure(figsize=(12, 8))
+
+    # Subplot for Accuracy
+    plt.subplot(2, 2, 1)
+    plt.plot(acc, label="Train Accuracy")
+    plt.plot(val_acc, label="Validation Accuracy")
+    plt.title("Accuracy")
     plt.xlabel("Epochs")
     plt.ylabel("Accuracy")
     plt.legend()
 
-    # Plot training & validation loss
-    plt.subplot(1, 2, 2)
-    plt.plot(history["loss"], label="Train Loss")
-    plt.plot(history["val_loss"], label="Validation Loss")
-    plt.title("Training and Validation Loss")
+    # Subplot for Loss
+    plt.subplot(2, 2, 2)
+    plt.plot(loss, label="Train Loss")
+    plt.plot(val_loss, label="Validation Loss")
+    plt.title("Loss")
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
     plt.legend()
 
+    # Subplot for Precision and Recall
+    plt.subplot(2, 2, 3)
+    plt.plot(precision, label="Train Precision")
+    plt.plot(val_precision, label="Validation Precision")
+    plt.plot(recall, label="Train Recall")
+    plt.plot(val_recall, label="Validation Recall")
+    plt.title("Precision and Recall")
+    plt.xlabel("Epochs")
+    plt.ylabel("Values")
+    plt.legend()
+
+    # Subplot for F1 Score
+    plt.subplot(2, 2, 4)
+    plt.plot(f1, label="Train F1 Score")
+    plt.plot(val_f1, label="Validation F1 Score")
+    plt.title("F1 Score")
+    plt.xlabel("Epochs")
+    plt.ylabel("F1 Score")
+    plt.legend()
+
     plt.tight_layout()
+    plt.savefig("training_history_plots.png")  # Save the figure
     plt.show()
 
 
-# Let's create an instance of the main class
+# Set up GPU memory growth to avoid memory allocation issues.
 gpus = tf.config.experimental.list_physical_devices("GPU")
 if gpus:
     try:
@@ -381,6 +449,6 @@ if gpus:
         # Memory growth must be set before GPUs have been initialized
         print(e)
 
+# Initialize the ITM classifier and plot the training history.
 itm = ITM_Classifier()
-
-plot_training_history(itm)
+plot_training_history(itm.history.history)

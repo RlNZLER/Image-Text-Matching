@@ -277,12 +277,8 @@ class ITM_Classifier(ITM_DataLoader):
         )
         net = tf.keras.layers.Concatenate(axis=1)([vision_net, text_net])
         net = tf.keras.layers.Dropout(0.1)(net)
-        net = tf.keras.layers.Dense(
-            self.num_classes, activation="softmax", name=self.classifier_model_name
-        )(net)
-        self.classifier_model = tf.keras.Model(
-            inputs=[img_input, text_input], outputs=net
-        )
+        net = tf.keras.layers.Dense(self.num_classes, activation="softmax", name=self.classifier_model_name)(net)
+        self.classifier_model = tf.keras.Model(inputs=[img_input, text_input], outputs=net)
         self.classifier_model.summary()
 
     def train_classifier_model(self):
