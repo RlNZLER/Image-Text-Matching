@@ -375,7 +375,7 @@ def log_metrics(itm):
     ]
 
     # Open the CSV file for writing
-    with open(csv_file, mode="w", newline="") as file:
+    with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -431,7 +431,9 @@ def plot_training_history(itm):
 
     # Calculate F1 Scores for each epoch
     f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(precision, recall)]
-    val_f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)]
+    val_f1 = [
+        calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)
+    ]
 
     plt.figure(figsize=(12, 8))
 
@@ -475,7 +477,7 @@ def plot_training_history(itm):
 
     plt.tight_layout()
     plt.savefig(
-        f"{itm.classifier_model_name}_training_history_plots.png"
+        f"./plots/{itm.classifier_model_name}_training_history_plots.png"
     )  # Save the figure
     plt.show()
 

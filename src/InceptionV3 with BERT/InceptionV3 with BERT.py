@@ -396,7 +396,7 @@ def log_metrics(itm):
     ]
 
     # Open the CSV file for writing
-    with open(csv_file, mode="w", newline="") as file:
+    with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -496,7 +496,7 @@ def plot_training_history(itm):
 
     plt.tight_layout()
     plt.savefig(
-        f"{itm.classifier_model_name}_training_history_plots.png"
+        f"./plots/{itm.classifier_model_name}_training_history_plots.png"
     )  # Save the figure
     plt.show()
 

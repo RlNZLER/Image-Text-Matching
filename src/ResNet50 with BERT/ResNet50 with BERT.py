@@ -8,6 +8,7 @@ import datetime
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
 from transformers import BertTokenizer, TFBertModel
 from official.nlp import optimization
 import matplotlib.pyplot as plt
@@ -117,7 +118,7 @@ class ITM_DataLoader:
 
 class ITM_Classifier(ITM_DataLoader):
     epochs = 2
-    learning_rate = 4e-5
+    learning_rate = 3e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
     classifier_model = None
@@ -299,9 +300,7 @@ class ITM_Classifier(ITM_DataLoader):
 
     # Evaluate the model on the test dataset and print accuracy metrics.
     def test_classifier_model(self):
-        print(
-            "TESTING model (showing a sample of image-text-matching predictions)..."
-        )
+        print("TESTING model (showing a sample of image-text-matching predictions)...")
         num_classifications = 0
         num_correct_predictions = 0
 
@@ -377,7 +376,7 @@ def log_metrics(itm):
     ]
 
     # Open the CSV file for writing
-    with open(csv_file, mode="w", newline="") as file:
+    with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -433,7 +432,9 @@ def plot_training_history(itm):
 
     # Calculate F1 Scores for each epoch
     f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(precision, recall)]
-    val_f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)]
+    val_f1 = [
+        calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)
+    ]
 
     plt.figure(figsize=(12, 8))
 
@@ -477,7 +478,7 @@ def plot_training_history(itm):
 
     plt.tight_layout()
     plt.savefig(
-        f"{itm.classifier_model_name}_training_history_plots.png"
+        f"./plots/{itm.classifier_model_name}_training_history_plots.png"
     )  # Save the figure
     plt.show()
 
