@@ -416,10 +416,16 @@ def log_metrics(itm):
         "Training Time",
     ]
 
+    # Check if the file exists to decide whether to add headers
+    file_exists = os.path.exists(csv_file)
+
     # Open the CSV file for writing
-    with open(csv_file, mode="a", newline="") as file:
+    with open(csv_file, mode='a', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
+        
+        # Write header only if the file does not exist
+        if not file_exists:
+            writer.writeheader()
 
         # Collect the last epoch training and validation metrics
         history = itm.history.history
@@ -456,7 +462,6 @@ def log_metrics(itm):
                 "Training Time": itm.training_time.total_seconds(),  # Convert to seconds
             }
         )
-
 
 # Plot training history metrics for accuracy, loss, precision, recall, and F1 score.
 def plot_training_history(itm):

@@ -371,6 +371,7 @@ def calculate_f1_score(precision, recall):
         return 0
     return 2 * (precision * recall) / (precision + recall)
 
+
 # Log final metrics to a CSV file for tracking and comparison.
 def log_metrics(itm):
     # Define the CSV file path
@@ -395,10 +396,16 @@ def log_metrics(itm):
         "Training Time",
     ]
 
+    # Check if the file exists to decide whether to add headers
+    file_exists = os.path.exists(csv_file)
+
     # Open the CSV file for writing
     with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        writer.writeheader()
+
+        # Write header only if the file does not exist
+        if not file_exists:
+            writer.writeheader()
 
         # Collect the last epoch training and validation metrics
         history = itm.history.history
@@ -452,7 +459,9 @@ def plot_training_history(itm):
 
     # Calculate F1 Scores for each epoch
     f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(precision, recall)]
-    val_f1 = [calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)]
+    val_f1 = [
+        calculate_f1_score(prec, rec) for prec, rec in zip(val_precision, val_recall)
+    ]
 
     plt.figure(figsize=(12, 8))
 
