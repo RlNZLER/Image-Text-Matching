@@ -211,7 +211,7 @@ class ITM_DataLoader:
 
 
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 10
+    epochs = 2
     learning_rate = 3e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
@@ -420,9 +420,9 @@ def log_metrics(itm):
     file_exists = os.path.exists(csv_file)
 
     # Open the CSV file for writing
-    with open(csv_file, mode='a', newline='') as file:
+    with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        
+
         # Write header only if the file does not exist
         if not file_exists:
             writer.writeheader()
@@ -462,6 +462,7 @@ def log_metrics(itm):
                 "Training Time": itm.training_time.total_seconds(),  # Convert to seconds
             }
         )
+
 
 # Plot training history metrics for accuracy, loss, precision, recall, and F1 score.
 def plot_training_history(itm):
