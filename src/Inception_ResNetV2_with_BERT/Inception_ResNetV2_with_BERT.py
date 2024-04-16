@@ -116,8 +116,8 @@ class ITM_DataLoader:
 
 
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 2
-    learning_rate = 4e-5
+    epochs = 20
+    learning_rate = 3e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
     classifier_model = None
