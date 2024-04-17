@@ -4,3 +4,4 @@ cuda-repo-ubuntu2204-11-8-local_11.8.0-520.61.05-1_amd64.deb
 data/images/
 starting/hyperband_optimization/
 models/
+flickr8k.dataset-cmp9137-item1/flickr8k-resised/

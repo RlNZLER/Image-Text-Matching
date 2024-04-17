@@ -13,6 +13,10 @@ from transformers import BertTokenizer, TFBertModel
 from official.nlp import optimization
 import matplotlib.pyplot as plt
 
+
+# Change the path to the data folder.
+DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/flickr8k.dataset-cmp9137-item1"
+
 # Class for loading image and text data
 
 
@@ -24,8 +28,8 @@ class ITM_DataLoader:
     SENTENCE_EMBEDDING_SHAPE = 384
     AUTOTUNE = tf.data.AUTOTUNE
     tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/data"
-    IMAGES_PATH = DATA_PATH + "/images"
+
+    IMAGES_PATH = DATA_PATH + "/flickr8k-resised"
     train_data_file = DATA_PATH + "/flickr8k.TrainImages.txt"
     dev_data_file = DATA_PATH + "/flickr8k.DevImages.txt"
     test_data_file = DATA_PATH + "/flickr8k.TestImages.txt"
@@ -116,7 +120,7 @@ class ITM_DataLoader:
 
 
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 20
+    epochs = 2
     learning_rate = 3e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
@@ -378,9 +382,9 @@ def log_metrics(itm):
     file_exists = os.path.exists(csv_file)
 
     # Open the CSV file for writing
-    with open(csv_file, mode='a', newline='') as file:
+    with open(csv_file, mode="a", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
-        
+
         # Write header only if the file does not exist
         if not file_exists:
             writer.writeheader()

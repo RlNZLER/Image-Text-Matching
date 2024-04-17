@@ -92,6 +92,7 @@ tf-slim==1.1.0
 threadpoolctl==3.4.0
 toml==0.10.2
 tqdm==4.66.2
+transformers==4.22.2
 typeguard==2.13.3
 typing_extensions==4.11.0
 tzdata==2024.1

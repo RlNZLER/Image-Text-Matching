@@ -87,6 +87,9 @@ from official.nlp import optimization
 import matplotlib.pyplot as plt
 
 
+# Change the path to the data folder.
+DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/flickr8k.dataset-cmp9137-item1"
+
 # Class for loading image and text data
 
 
@@ -96,8 +99,8 @@ class ITM_DataLoader:
     IMAGE_SHAPE = (224, 224, 3)
     SENTENCE_EMBEDDING_SHAPE = 384
     AUTOTUNE = tf.data.AUTOTUNE
-    DATA_PATH = "D:\_GITHUB_\Image-Text-Matching\data"
-    IMAGES_PATH = DATA_PATH + "/images"
+
+    IMAGES_PATH = DATA_PATH + "/flickr8k-resised"
     train_data_file = DATA_PATH + "/flickr8k.TrainImages.txt"
     dev_data_file = DATA_PATH + "/flickr8k.DevImages.txt"
     test_data_file = DATA_PATH + "/flickr8k.TestImages.txt"
