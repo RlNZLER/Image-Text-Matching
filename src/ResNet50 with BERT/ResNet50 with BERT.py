@@ -120,7 +120,7 @@ class ITM_DataLoader:
 
 
 class ITM_Classifier(ITM_DataLoader):
-    epochs = 2
+    epochs = 20
     learning_rate = 3e-5
     class_names = {"match", "no-match"}
     num_classes = len(class_names)
@@ -486,6 +486,7 @@ def plot_training_history(itm):
     plt.legend()
 
     plt.tight_layout()
+    os.makedirs("./plots", exist_ok=True)
     plt.savefig(
         f"./plots/{itm.classifier_model_name}_training_history_plots.png"
     )  # Save the figure
