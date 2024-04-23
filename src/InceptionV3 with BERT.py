@@ -1,18 +1,26 @@
-"""
-This Python module implements a multimodal Image-Text Matching (ITM) system using deep learning frameworks provided by TensorFlow and the Hugging Face Transformers library. The module is structured into several classes and functions that facilitate the end-to-end process of training and evaluating a classifier model that can determine if given pairs of images and text descriptions match or not.
+############################################################################################
+# InceptionV3 with BERT
+############################################################################################
+#
+# This Python script implements a deep learning-based Image-Text Matching (ITM) system leveraging TensorFlow and the
+# Hugging Face Transformers library. It comprehensively covers the necessary imports, class definitions, and configurations
+# for handling data preprocessing, model construction, and training.
 
-Key components:
-- ITM_DataLoader: Responsible for loading and preprocessing image and text data. It uses BERT (from Hugging Face Transformers) for text tokenization and processes images using TensorFlow operations.
-- ITM_Classifier: Inherits from ITM_DataLoader and implements the core functionality to build, train, and test a neural network model that integrates features extracted from both images (using InceptionV3) and text (using BERT). The classifier predicts whether the image and text are a match or not.
-- Auxiliary Functions: Includes functions for plotting training history and calculating F1 scores, enhancing the interpretability of the model's performance over epochs.
+# Key components:
+# - ITM_DataLoader class: Manages data loading and preprocessing, using the BERT tokenizer for text and resizing functions
+#   for images.
+# - ITM_Classifier class: Inherits from ITM_DataLoader, constructs a multimodal model that integrates InceptionV3 for image
+#   feature extraction and BERT for text encoding, aimed at classifying the correspondence between text and images.
+# - Additional functionalities include methods for saving the model, logging performance metrics, plotting training history,
+#   and managing GPU memory efficiently to ensure robust model training.
 
-The module also manages GPU resources to accommodate TensorFlow's requirements for computational efficiency and handles the initialization of the classifier model along with the visualization of the training process.
+# The script initializes and executes the complete pipeline at the end, encompassing model setup, training, metric logging,
+# and visual representation of training history. This comprehensive approach is designed for robust performance in image-text
+# matching tasks.
+# Version 1.0, main functionality tested with COCO data
+# Version 1.2, extended functionality for Flickr data
+# Version 1.3, Modified vison encoder to use InceptionV3 and BERT as the text encoder.
 
-Dependencies:
-- TensorFlow and TensorFlow Hub for model building and training.
-- Hugging Face's Transformers for efficient text processing.
-- Matplotlib for plotting training and validation metrics.
-"""
 
 # Let's import the dependencies
 
