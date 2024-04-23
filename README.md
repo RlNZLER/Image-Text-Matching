@@ -67,6 +67,12 @@ python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU')
 pip install -r ./requirements.txt
 ```
 
+#### Step 4: Download the data and the code.
+Download the data from [here](https://drive.google.com/drive/folders/1qOk1kjAWNghAtg1YJApR0VJPjC5dWUAt?usp=sharing).
+Remember to edit the global variable `DATA_PATH` in the code with the location of the data folder.
+
+Clone the repository or download the respective code from [src](https://github.com/RlNZLER/Image-Text-Matching/tree/main/src) folder.
+
 ### Usage
 -----
 
