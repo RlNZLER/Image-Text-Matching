@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 
 
 # Change the path to the data folder.
-DATA_PATH = "/flickr8k.dataset-cmp9137-item1"
+DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/flickr8k.dataset-cmp9137-item1"
 
 # Class for loading image and text data
 
