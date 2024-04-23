@@ -2,20 +2,20 @@
 # ResNet50 with BERT
 ############################################################################################
 #
-# This Python script implements a deep learning-based Image-Text Matching (ITM) system leveraging TensorFlow and the 
-# Hugging Face Transformers library. It comprehensively covers the necessary imports, class definitions, and configurations 
+# This Python script implements a deep learning-based Image-Text Matching (ITM) system leveraging TensorFlow and the
+# Hugging Face Transformers library. It comprehensively covers the necessary imports, class definitions, and configurations
 # for handling data preprocessing, model construction, and training.
 
 # Key components:
-# - ITM_DataLoader class: Manages data loading and preprocessing, using the BERT tokenizer for text and resizing functions 
+# - ITM_DataLoader class: Manages data loading and preprocessing, using the BERT tokenizer for text and resizing functions
 #   for images.
-# - ITM_Classifier class: Inherits from ITM_DataLoader, constructs a multimodal model that integrates ResNet50 for image 
+# - ITM_Classifier class: Inherits from ITM_DataLoader, constructs a multimodal model that integrates ResNet50 for image
 #   feature extraction and BERT for text encoding, aimed at classifying the correspondence between text and images.
-# - Additional functionalities include methods for saving the model, logging performance metrics, plotting training history, 
+# - Additional functionalities include methods for saving the model, logging performance metrics, plotting training history,
 #   and managing GPU memory efficiently to ensure robust model training.
 
-# The script initializes and executes the complete pipeline at the end, encompassing model setup, training, metric logging, 
-# and visual representation of training history. This comprehensive approach is designed for robust performance in image-text 
+# The script initializes and executes the complete pipeline at the end, encompassing model setup, training, metric logging,
+# and visual representation of training history. This comprehensive approach is designed for robust performance in image-text
 # matching tasks.
 # Version 1.0, main functionality tested with COCO data
 # Version 1.2, extended functionality for Flickr data
@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 
 
 # Change the path to the data folder.
-DATA_PATH = "D:/_GITHUB_/Image-Text-Matching/flickr8k.dataset-cmp9137-item1"
+DATA_PATH = "/flickr8k.dataset-cmp9137-item1"
 
 # Class for loading image and text data
 
