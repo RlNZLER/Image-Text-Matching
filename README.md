@@ -30,7 +30,7 @@ Participants are required to train and evaluate at least three different machine
 
 + Download and install Anaconda to manage packages and environments for the project.
 + Create a new conda environment with **Python 3.10**.
-+ Launch the conda terminal of the newly created encironment.
++ Launch the conda terminal of the newly created environment.
 
 #### Step 2: Set up the environment
 
@@ -42,7 +42,7 @@ conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
 
 Note: TensorFlow versions above 2.10 are not supported on native GPU on Windows.
 
-Install TensorFlow:
+Install TensorFlow 2.10:
 
 ```
 python -m pip install "tensorflow<2.11"
@@ -64,7 +64,7 @@ pip install -r ./requirements.txt
 ### Usage
 -----
 
-After installation, you can run the scripts provided in the repository to train models and evaluate their performance. Detailed usage instructions are provided in the respective script documentation.
+After installation, you can run the scripts provided in the repository under src to train models and evaluate their performance. Detailed usage instructions are provided in the respective script documentation.
 
 ### Contributions
 -------------
