@@ -82,6 +82,6 @@ Contributions are welcome. Please ensure to follow the best practices and guidel
 
 This project uses publicly available libraries and frameworks such as Keras, TensorFlow, PyTorch, and ChatGPT. Proper acknowledgment to the data sources and tools used is crucial for transparency and reproducibility.
 
-### License
+### [License](https://github.com/RlNZLER/Image-Text-Matching/blob/main/LICENSE.txt)
 -------
-[MIT License](https://github.com/RlNZLER/Image-Text-Matching/blob/main/LICENSE.txt)
+MIT License
