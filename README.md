@@ -17,10 +17,10 @@ Participants are required to train and evaluate at least three different machine
 
 | Image | Text | Label |
 | ----- | ---- | ----- |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3523972229_d44e9ff6d7.jpg?raw=true) | The skateboard is falling away from the skateboarder as he attempts a jump. | match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3524436870_7670df68e8.jpg?raw=true) | Two people stand next to a sign that says  HELL  made out of stars. | no-match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3525453732_f74a38f111.jpg?raw=true) | An owl has its wings up and widespread during the day. | match |
-| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/data/images/3526897578_3cf77da99b.jpg?raw=true) | A kayaker is battling waves in a purple boat while wearing rain gear. | no-match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/images/3523972229_d44e9ff6d7.jpg?raw=true) | The skateboard is falling away from the skateboarder as he attempts a jump. | match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/images/3524436870_7670df68e8.jpg?raw=true) | Two people stand next to a sign that says  HELL  made out of stars. | no-match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/images/3525453732_f74a38f111.jpg?raw=true) | An owl has its wings up and widespread during the day. | match |
+| ![Image Description](https://github.com/RlNZLER/AML_Task1/blob/main/images/3526897578_3cf77da99b.jpg?raw=true) | A kayaker is battling waves in a purple boat while wearing rain gear. | no-match |
 
 
 ### Installation Instructions
