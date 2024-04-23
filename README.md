@@ -12,9 +12,9 @@ The dataset utilized for this task is derived from the Flickr8k and Flickr30k da
 
 ### Implemented Classifiers
 
-1.  **ResNet50 with BERT:** Combines the power of ResNet50 for image feature extraction with BERT for text feature extraction.
-2.  **Inception V3 with BERT:** Utilizes Inception V3 for image processing paired with BERT for processing the textual data.
-3.  **InceptionResNetV2 with BERT:** Integrates InceptionResNetV2 for advanced image feature extraction with BERT for textual analysis.
+1.  [**ResNet50 with BERT:**](https://github.com/RlNZLER/Image-Text-Matching/blob/main/src/ResNet50%20with%20BERT.py) Combines the power of ResNet50 for image feature extraction with BERT for text feature extraction.
+2.  [**Inception V3 with BERT:**]() Utilizes Inception V3 for image processing paired with BERT for processing the textual data.
+3.  [**InceptionResNetV2 with BERT:**]() Integrates InceptionResNetV2 for advanced image feature extraction with BERT for textual analysis.
    
 ### Task Description
 ----------------
