@@ -19,7 +19,7 @@ The dataset utilized for this task is derived from the Flickr8k and Flickr30k da
 ### Task Description
 ----------------
 
-Participants are required to train and evaluate at least three different machine learning classifiers to determine if an image and its corresponding textual description match. The evaluation of these classifiers should include metrics such as Balanced Classification Accuracy, precision-recall, and F-measure, among others.
+Trained and evaluated three different machine learning classifiers to determine if an image and its corresponding textual description match. The evaluation of these classifiers includes metrics such as Balanced Classification Accuracy, precision-recall, and F-measure, among others.
 
 | Image | Text | Label |
 | ----- | ---- | ----- |
