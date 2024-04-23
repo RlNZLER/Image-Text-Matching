@@ -26,11 +26,11 @@ Participants are required to train and evaluate at least three different machine
 ### Installation Instructions
 -------------------------
 
-##### Step 1: Install Anaconda
+#### Step 1: Install Anaconda
 
 Download and install Anaconda to manage packages and environments for the project.
 
-##### Step 2: Set up the environment
+#### Step 2: Set up the environment
 
 Install CUDA and cuDNN libraries required for running TensorFlow with GPU support.
 
@@ -52,7 +52,7 @@ bashCopy code
 
 `python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"`
 
-##### Step 3: Install required Python packages
+#### Step 3: Install required Python packages
 
 bashCopy code
 
