@@ -63,6 +63,8 @@ python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU')
 
 #### Step 3: Install required Python packages
 
+Launch VScode from Anaconda Navigator, then open termial and install the remaining python packages.
+
 ```
 pip install -r ./requirements.txt
 ```
