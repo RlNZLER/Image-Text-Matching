@@ -29,34 +29,37 @@ Participants are required to train and evaluate at least three different machine
 #### Step 1: Install Anaconda
 
 Download and install Anaconda to manage packages and environments for the project.
+Create a new conda environment with **Python 3.10**.
+Launch the conda terminal of the newly created encironment.
 
 #### Step 2: Set up the environment
 
 Install CUDA and cuDNN libraries required for running TensorFlow with GPU support.
 
-bashCopy code
-
-`conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0`
+```
+conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+```
 
 Note: TensorFlow versions above 2.10 are not supported on native GPU on Windows.
 
 Install TensorFlow:
 
-bashCopy code
-
-`python -m pip install "tensorflow<2.11"`
+```
+python -m pip install "tensorflow<2.11"
+```
 
 Verify the GPU setup:
 
-bashCopy code
+```
+python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+```
 
-`python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"`
 
 #### Step 3: Install required Python packages
 
-bashCopy code
-
-`pip install -r ./requirements.txt`
+```
+pip install -r ./requirements.txt
+```
 
 ### Usage
 -----
