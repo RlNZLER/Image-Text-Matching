@@ -84,3 +84,4 @@ This project uses publicly available libraries and frameworks such as Keras, Ten
 
 ### License
 -------
+[MIT License](https://github.com/RlNZLER/Image-Text-Matching/blob/main/LICENSE.txt)
