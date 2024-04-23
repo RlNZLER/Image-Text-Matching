@@ -8,8 +8,14 @@ This repository contains resources and implementation details for the task of Im
 ### Dataset
 -------
 
-The dataset utilized for this task is derived from the Flickr8k and Flickr30k datasets as proposed by Hodosh et al, 2013 (JAIR) and Young et al, 2014 (TACL). Due to computing constraints, a unique subset of these datasets will be available via Blackboard, encompassing separate training, validation, and test splits.
+The dataset utilized for this task is derived from the Flickr8k and Flickr30k datasets encompassing separate training, validation, and test splits.
 
+### Implemented Classifiers
+
+1.  **ResNet50 with BERT:** Combines the power of ResNet50 for image feature extraction with BERT for text feature extraction.
+2.  **Inception V3 with BERT:** Utilizes Inception V3 for image processing paired with BERT for processing the textual data.
+3.  **InceptionResNetV2 with BERT:** Integrates InceptionResNetV2 for advanced image feature extraction with BERT for textual analysis.
+   
 ### Task Description
 ----------------
 
