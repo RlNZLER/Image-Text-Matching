@@ -28,9 +28,9 @@ Participants are required to train and evaluate at least three different machine
 
 #### Step 1: Install Anaconda
 
-Download and install Anaconda to manage packages and environments for the project.
-Create a new conda environment with **Python 3.10**.
-Launch the conda terminal of the newly created encironment.
++ Download and install Anaconda to manage packages and environments for the project.
++ Create a new conda environment with **Python 3.10**.
++ Launch the conda terminal of the newly created encironment.
 
 #### Step 2: Set up the environment
 
